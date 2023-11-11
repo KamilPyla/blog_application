@@ -11,6 +11,9 @@
   </head>
 
   <body>
-    <%= yield %>
+    <%= render('navbars/navbar')%>
+    <div class="col-xs-1 text-center">
+      <%= yield %>
+    </div>
   </body>
 </html>
