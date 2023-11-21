@@ -20,6 +20,7 @@ module BlogApplication
     config.autoload_lib(ignore: %w(assets tasks))
     config.generators.test_framework :rspec
 
+    config.i18n.default_locale = :pl
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files
