@@ -1,9 +1,4 @@
 <h1>Pages#home</h1>
 <p>Find me in app/views/pages/home.html.erb</p>
 
-<% if !current_user %>
-  <%= link_to'Stwórz konto', new_user_registration_path %>
-  <%= link_to 'Zaloguj się', new_user_session_path %>
-<% else %>
-  <%= link_to "Wyloguj się #{current_user.email}", destroy_user_session_path, data: { turbo_method: :delete } %>
-<% end %>
+<%= render 'shared/image_preview' %>
