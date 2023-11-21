@@ -1,0 +1,10 @@
+<%= content_tag :main, class: "container mx-auto pt-6 h-screen", data: { controller: 'image-upload-preview' } do %>
+  <div class="flex flex-col">
+    <label class="mb-4">Załącz obrazek</label>
+    <%= file_field_tag :image, data: { target: 'image-upload-preview.input', action: 'image-upload-preview#setImagePreview' }%>
+  </div>
+  <div class="flex flex-col items-center justify-center border mt-12 h-4/5">
+    <%= image_tag '', class: 'h-5/6 w-5/6 object-contain object-center', 
+          data: { target: 'image-upload-preview.preview' }  %>
+  </div>
+<% end %>
