@@ -1,0 +1,17 @@
+<div id="<%= dom_id post %>">
+  <p>
+    <strong> <%= post.title %> </strong>
+  </p>
+
+  <%= post.body %>
+  <br/>
+
+  <% if post.image.content_type.in?(%w[image/jpeg image/png])%>
+    <%= link_to image_tag(post.image_as_thumbnail), post.image %>
+  <% end %>
+
+  <hr/>
+  <% post.pictures.each do |picture| %>
+    <%= link_to image_tag(post.picture_as_thumbnail(picture)), picture %>
+  <% end if post.pictures.attached? %>
+</div>
