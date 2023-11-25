@@ -69,6 +69,10 @@ class PostsController < ApplicationController
     params.fetch(:post, {}).permit(*permitted_params, pictures: [])
   end
 
+  def action_subject
+    :post
+  end
+
   def action_name_map
     {
       create: 'Dodano post',

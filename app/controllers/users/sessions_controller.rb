@@ -30,6 +30,10 @@ class Users::SessionsController < Devise::SessionsController
 
   private
 
+  def action_subject
+    :login
+  end
+
   def action_name_map
     {
       create: 'Zalogowano',

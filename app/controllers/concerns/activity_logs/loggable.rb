@@ -4,7 +4,7 @@ module ActivityLogs
 
     def create_log
       ActiveRecord::Base.transaction do
-        ::ActivityLogs::Creator.perform(user: current_user, action:, ip_address:)
+        ::ActivityLogs::Creator.perform(user: current_user, action:, action_subject:, ip_address:)
       end
     end
 
@@ -19,7 +19,11 @@ module ActivityLogs
     end
 
     def action_name_map
-      raise NotImplementedError, 'action_name_map'
+      raise NotImplementedError, __method__
+    end
+
+    def action_subject
+      raise NotImplementedError, __method__
     end
   end
 end
