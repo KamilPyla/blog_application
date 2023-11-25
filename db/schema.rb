@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_21_192303) do
+ActiveRecord::Schema[7.1].define(version: 2023_11_25_141641) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -51,6 +51,16 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_21_192303) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "activity_logs", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "action", null: false
+    t.string "ip_address"
+    t.string "action_subject", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_activity_logs_on_user_id"
   end
 
   create_table "admins", force: :cascade do |t|
@@ -152,6 +162,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_21_192303) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "activity_logs", "users"
   add_foreign_key "comments", "users"
   add_foreign_key "messages", "message_threads", column: "message_threads_id"
   add_foreign_key "messages", "users"
