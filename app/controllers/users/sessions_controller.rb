@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
 class Users::SessionsController < Devise::SessionsController
+  include ::ActivityLogs::Loggable
   # before_action :configure_sign_in_params, only: [:create]
+  after_action :create_log, only: :create
+  before_action :create_log, only: :destroy
 
   # GET /resource/sign_in
   # def new
@@ -24,4 +27,13 @@ class Users::SessionsController < Devise::SessionsController
   # def configure_sign_in_params
   #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
   # end
+
+  private
+
+  def action_name_map
+    {
+      create: 'Zalogowano',
+      destroy: 'Wylogowano'
+    }
+  end
 end
