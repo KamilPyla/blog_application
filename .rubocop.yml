@@ -4,3 +4,6 @@ AllCops:
     - db/**/*
     - config/**/*
     - specs/**/*
+
+Metrics/MethodLength:
+  Enable: False
