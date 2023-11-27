@@ -7,3 +7,4 @@ AllCops:
 
 Metrics/MethodLength:
   Enable: False
+
