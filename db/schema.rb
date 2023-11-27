@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_25_141641) do
+ActiveRecord::Schema[7.1].define(version: 2023_11_27_191100) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -87,6 +87,21 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_25_141641) do
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
+  create_table "events", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "title"
+    t.string "city", null: false
+    t.string "street"
+    t.date "date"
+    t.datetime "start_at"
+    t.integer "max_tickets"
+    t.integer "price"
+    t.integer "total_tickets"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_events_on_user_id"
+  end
+
   create_table "message_threads", force: :cascade do |t|
     t.string "topic"
     t.string "kind"
@@ -147,6 +162,15 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_25_141641) do
     t.index ["user_id"], name: "index_products_on_user_id"
   end
 
+  create_table "tickets", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "event_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_tickets_on_event_id"
+    t.index ["user_id"], name: "index_tickets_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -164,7 +188,10 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_25_141641) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "activity_logs", "users"
   add_foreign_key "comments", "users"
+  add_foreign_key "events", "users"
   add_foreign_key "messages", "message_threads", column: "message_threads_id"
   add_foreign_key "messages", "users"
   add_foreign_key "product_sub_categories", "product_categories"
+  add_foreign_key "tickets", "events"
+  add_foreign_key "tickets", "users"
 end
