@@ -33,11 +33,4 @@ class Users::SessionsController < Devise::SessionsController
   def action_subject
     :login
   end
-
-  def action_name_map
-    {
-      create: 'Zalogowano',
-      destroy: 'Wylogowano'
-    }
-  end
 end

@@ -4,7 +4,7 @@ module ActivityLogs
 
     def create_log
       ActiveRecord::Base.transaction do
-        ::ActivityLogs::Creator.perform(user: current_user, action:, action_subject:, ip_address:)
+        ::ActivityLogs::Creator.perform(user: current_user, action_message:, action_subject:, ip_address:)
       end
     end
 
@@ -14,12 +14,8 @@ module ActivityLogs
       request.ip
     end
 
-    def action
-      action_name_map.fetch(action_name.to_sym, 'Nierozpoznana akcja')
-    end
-
-    def action_name_map
-      raise NotImplementedError, __method__
+    def action_message
+      ::NameConvention.klass_name(:activity_logs_message, action_subject).perform(action_name)
     end
 
     def action_subject

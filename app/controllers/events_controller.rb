@@ -1,8 +1,10 @@
 class EventsController < ApplicationController
   include ::ActivityLogs::Loggable
 
-  before_action :set_event, only: %i[show edit update destroy]
+  before_action :set_object, only: %i[show edit update destroy]
   after_action :create_log, only: %i[create update destroy]
+  before_action :load_action_context, only: %i[create update destroy]
+  before_action :verify_params, only: %i[create update]
 
   def index
     @events = Event.all
@@ -11,67 +13,53 @@ class EventsController < ApplicationController
   def show; end
 
   def new
-    @event = Event.new
+    @object = Event.new
   end
 
   def edit; end
 
   def create
-    @event = current_user.events.build(event_params)
-
     respond_to do |format|
-      if @event.save
-        format.html { redirect_to event_url(@event), notice: "Event was successfully created." }
+      if @action_context.perform
+        format.html { redirect_to events_path, notice: 'Dodano wydarzenie' }
       else
         format.html { render :new, status: :unprocessable_entity }
       end
     end
   end
 
-  # PATCH/PUT /events/1 or /events/1.json
   def update
     respond_to do |format|
-      if @event.update(event_params)
-        format.html { redirect_to event_url(@event), notice: "Event was successfully updated." }
+      if @action_context.perform
+        format.html { redirect_to events_path, notice: 'Edytowano wydarzenie' }
       else
         format.html { render :edit, status: :unprocessable_entity }
       end
     end
   end
 
-  # DELETE /events/1 or /events/1.json
+  # DELETE /objects/1 or /objects/1.json
   def destroy
-    @event.destroy!
-
     respond_to do |format|
-      format.html { redirect_to events_url, notice: "Event was successfully destroyed." }
+      if @action_context.perform
+        format.html { redirect_to events_path, notice: 'Usunięto wydarzenie' }
+      else
+        format.html { render status: :unprocessable_entity }
+      end
     end
   end
 
   private
 
-  def set_event
-    @event = Event.find(params[:id])
+  def set_object
+    @object = Event.find(params[:id])
   end
 
   def permitted_params
-    %i[title city max_tickets price street date start_at content image max_tictets ]
-  end
-
-
-  def event_params
-    params.fetch(:event, {}).permit(*permitted_params).compact
+    params.fetch(:event, params).permit!
   end
 
   def action_subject
     :event
-  end
-
-  def action_name_map
-    {
-      create: 'Dodano wydarzenie',
-      update: 'Edytowano wydarzenie',
-      destroy: "Usunięto wydarzenie o tytule: #{@event.try(:title)}"
-    }
   end
 end
