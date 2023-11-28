@@ -2,9 +2,9 @@ module ActivityLogs
   class Creator
     extend ::Performable
 
-    def initialize(user:, action:, action_subject:, ip_address:)
+    def initialize(user:, action_message:, action_subject:, ip_address:)
       @user = user
-      @action = action
+      @action = action_message
       @ip_address = ip_address
       @action_subject = action_subject
     end

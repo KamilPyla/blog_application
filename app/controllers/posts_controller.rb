@@ -1,8 +1,10 @@
 class PostsController < ApplicationController
   include ::ActivityLogs::Loggable
 
-  before_action :set_post, only: %i[show edit update destroy]
+  before_action :set_object, only: %i[show edit update destroy]
   after_action :create_log, only: %i[create update destroy]
+  before_action :load_action_context, only: %i[create update destroy]
+  before_action :verify_params, only: %i[create update]
 
   def index
     @posts = Post.all
@@ -11,17 +13,15 @@ class PostsController < ApplicationController
   def show; end
 
   def new
-    @post = Post.new
+    @object = Post.new
   end
 
   def edit; end
 
   def create
-    @post = ::Posts::Builder.perform(current_user, post_params.merge(form.attributes))
-
     respond_to do |format|
-      if @post.save
-        format.html { redirect_to post_url(@post), notice: 'Post was successfully created.' }
+      if @action_context.perform
+        format.html { redirect_to posts_path, notice: 'Dodano post' }
       else
         format.html { render :new, status: :unprocessable_entity }
       end
@@ -30,54 +30,35 @@ class PostsController < ApplicationController
 
   def update
     respond_to do |format|
-      if @post.update(post_params)
-        format.html { redirect_to post_url(@post), notice: 'Post was successfully updated.' }
-        format.json { render :show, status: :ok, location: @post }
+      if @action_context.perform
+        format.html { redirect_to posts_path, notice: 'Edytowano post' }
       else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @post.errors, status: :unprocessable_entity }
+        format.html { render :new, status: :unprocessable_entity }
       end
     end
   end
 
-  # DELETE /posts/1 or /posts/1.json
   def destroy
-    @post.destroy!
-
     respond_to do |format|
-      format.html { redirect_to posts_url, notice: 'Post was successfully destroyed.' }
-      format.json { head :no_content }
+      if @action_context.perform
+        format.html { redirect_to posts_path, notice: 'Usunięto post' }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+      end
     end
   end
 
   private
 
-  def form
-    PostForm.new(post_params)
+  def set_object
+    @object = Post.find(params[:id])
   end
 
-  def set_post
-    @post = Post.find(params[:id])
-  end
-
-  # Only allow a list of trusted parameters through.
   def permitted_params
-    %i[title post_category_id body image]
-  end
-
-  def post_params
-    params.fetch(:post, {}).permit(*permitted_params, pictures: [])
+    params.fetch(:post, params).permit!
   end
 
   def action_subject
     :post
-  end
-
-  def action_name_map
-    {
-      create: 'Dodano post',
-      update: 'Edytowano post',
-      destroy: "Usunięto post o tytule: #{@post.try(:title)}"
-    }
   end
 end
