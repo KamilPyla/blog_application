@@ -10,11 +10,21 @@ module Executors
       private
 
       def update_attributes
-        event.assign_attributes(**form_attributes)
+        event.assign_attributes(**attributes)
       end
 
       def event
         @event ||= object
+      end
+
+      def attributes
+        form_attributes.except(*excepted_attributes)
+      end
+
+      def excepted_attributes
+        [].tap do |attrs|
+          attrs << :image if form_attributes[:image].blank?
+        end
       end
     end
   end

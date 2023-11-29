@@ -1,10 +1,11 @@
-class EventsController < ApplicationController
+class EventsController < CommonActionController
   include ::ActivityLogs::Loggable
 
   before_action :set_object, only: %i[show edit update destroy]
   after_action :create_log, only: %i[create update destroy]
   before_action :load_action_context, only: %i[create update destroy]
   before_action :verify_params, only: %i[create update]
+  before_action :check_ability, only: %i[new edit create update destroy]
 
   def index
     @events = Event.all

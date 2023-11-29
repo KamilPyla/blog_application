@@ -1,10 +1,11 @@
-class PostsController < ApplicationController
+class PostsController < CommonActionController
   include ::ActivityLogs::Loggable
 
   before_action :set_object, only: %i[show edit update destroy]
   after_action :create_log, only: %i[create update destroy]
   before_action :load_action_context, only: %i[create update destroy]
   before_action :verify_params, only: %i[create update]
+  before_action :check_ability, only: %i[new edit create update destroy]
 
   def index
     @posts = Post.all
@@ -33,7 +34,7 @@ class PostsController < ApplicationController
       if @action_context.perform
         format.html { redirect_to posts_path, notice: 'Edytowano post' }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html { render :edit, status: :unprocessable_entity }
       end
     end
   end
@@ -43,7 +44,7 @@ class PostsController < ApplicationController
       if @action_context.perform
         format.html { redirect_to posts_path, notice: 'Usunięto post' }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html { render edit: :unprocessable_entity }
       end
     end
   end
