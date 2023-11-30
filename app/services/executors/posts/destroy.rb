@@ -2,7 +2,6 @@ module Executors
   module Posts
     class Destroy < Executors::Base
       def perform
-        binding.pry
         post.destroy!
       end
 

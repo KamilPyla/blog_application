@@ -15,7 +15,7 @@ module ActivityLogs
     end
 
     def action_message
-      ::NameConvention.klass_name(:activity_logs_message, action_subject).perform(action_name)
+      ::NameConvention.klass_name(:activity_logs_message, action_subject).perform(action_name, @object)
     end
 
     def action_subject

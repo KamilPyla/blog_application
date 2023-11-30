@@ -7,8 +7,12 @@ module ActivityLogs
         {
           create: 'Dodano wydarzenie',
           update: 'Edytowano wydarzenie',
-          destroy: 'Usunięto wydarzenie.'
+          destroy: destory_action
         }
+      end
+
+      def destory_action
+        object ? "Usunięto wydarzenie o nazwie: #{object.title}" : 'Usunięto wydarzenie.'
       end
     end
   end

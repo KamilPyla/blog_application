@@ -7,8 +7,12 @@ module ActivityLogs
         {
           create: 'Dodano post',
           update: 'Edytowano post',
-          destroy: 'Usunięto post'
+          destroy: destory_action
         }
+      end
+
+      def destory_action
+        object ? "Usunięto post o nazwie: #{object.title}" : 'Usunięto post.'
       end
     end
   end
