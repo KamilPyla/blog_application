@@ -1,14 +1,21 @@
-<p style="color: green"><%= notice %></p>
-
 <h1>Product categories</h1>
 
 <div id="product_categories">
-  <% @product_categories.each do |product_category| %>
-    <%= render product_category %>
-    <p>
-      <%= link_to "Show this product category", product_category %>
-    </p>
-  <% end %>
-</div>
+  <h2 class="mb-4">Kategorie produktów</h2>
 
-<%= link_to "New product category", new_product_category_path %>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Nazwa</th>
+        <th scope="col">Szczegóły</th>
+      </tr>
+    </thead>
+    <tbody>
+        <% @product_categories.each do |product_category| %>
+          <%= render 'row_product_category', product_category: product_category %>
+        <% end %>
+    </tbody>
+  </table>
+
+  <%= link_to "Dodaj kategorię", new_product_category_path, class: 'btn btn-success' %>
+</div>

@@ -1,8 +1,7 @@
 <%= render @object %>
 
 <div>
-  <%= link_to "Edit this post", edit_post_path(@object) %> |
-  <%= link_to "Back to posts", posts_path %>
-
-  <%= button_to "Destroy this post", @object, method: :delete %>
+    <%= link_to "Edytuj post", edit_post_path(@object), class: 'btn btn-info mb-2' %> |
+    <%= link_to "Powrót", posts_path, class: 'btn btn-light mb-2'%>
+    <%= button_to "Usuń post", @object, method: :delete, class: 'btn btn-danger'%>
 </div>
