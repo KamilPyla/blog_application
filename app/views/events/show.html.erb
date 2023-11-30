@@ -1,8 +1,8 @@
 <%= render @object %>
 
-<div>
-  <%= link_to "Edit this event", edit_event_path(@object) %> |
-  <%= link_to "Back to events", events_path %>
-
-  <%= button_to "Destroy this event", @object, method: :delete %>
+<div class="container m-5 p-5">
+  <%= link_to "Edytuj wydarzenie", edit_event_path(@object), class: 'btn btn-info mb-2' %> |
+  <%= link_to "Powrót", events_path, class: 'btn btn-light mb-2' %>
+  <%= button_to "Usuń wydarzenie", @object, method: :delete, class: 'btn btn-danger' %>
 </div>
+

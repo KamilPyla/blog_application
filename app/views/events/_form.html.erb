@@ -41,13 +41,13 @@
   </div>
 
 
-  <div class="form-group">
+  <div class="form-group my-4">
     <%= content_tag :main, class: "container mx-auto pt-6 h-screen", data: { controller: 'image-upload-preview' } do %>
       <%= form.label :image %>
       <%= form.file_field :image, class: "form-control-file", data: { target: 'image-upload-preview.input', action: 'image-upload-preview#setImagePreview' }%>
       <%= image_tag event.image_preload, class: 'h-5/6 w-5/6 object-contain object-center', 
             data: { target: 'image-upload-preview.preview' }  if event %>
-    <% end %>
+      <% end %>
   </div>
 
 
@@ -56,7 +56,7 @@
   </div>
 
   <div>
-    <%= form.submit class: 'btn btn-primary' %>
+    <%= form.submit class: 'btn btn-primary my-4' %>
   </div>
 <% end %>
 

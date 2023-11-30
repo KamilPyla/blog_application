@@ -1,14 +1,21 @@
-<p style="color: green"><%= notice %></p>
-
-<h1>Post categories</h1>
 
 <div id="post_categories">
-  <% @post_categories.each do |post_category| %>
-    <%= render post_category %>
-    <p>
-      <%= link_to "Show this post category", post_category %>
-    </p>
-  <% end %>
+  <h2 class="mb-4">Kategorie postów</h2>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Nazwa</th>
+        <th scope="col">Szczegóły</th>
+      </tr>
+    </thead>
+    <tbody>
+        <% @post_categories.each do |post_category| %>
+          <%= render 'row_post_category', post_category: post_category %>
+        <% end %>
+    </tbody>
+  </table>
+
+  <%= link_to "Dodaj kategorię", new_post_category_path,  class: 'btn btn-success'%>
 </div>
 
-<%= link_to "New post category", new_post_category_path %>
