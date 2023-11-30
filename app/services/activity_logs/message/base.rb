@@ -3,8 +3,9 @@ module ActivityLogs
     class Base
       extend ::Performable
 
-      def initialize(action)
+      def initialize(action, object = nil)
         @action = action.to_sym
+        @object = object
       end
 
       def perform
@@ -13,7 +14,7 @@ module ActivityLogs
 
       private
 
-      attr_reader :action
+      attr_reader :action, :object
 
       def action_mapper
         raise NotImplementedError, __method__
