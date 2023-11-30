@@ -1,0 +1,8 @@
+<tr id="<%= dom_id activity_log %>">
+  <td><%= activity_log.user.email %></td>
+  <td><%= activity_log.action %></td>
+  <td><%= action_kind(activity_log.action_subject) %></td>
+  <td><%= activity_log.created_at.strftime('%m-%d-%Y') %></td>
+  <td><%= activity_log.created_at.strftime('%H:%M') %></td>
+  <td><%= activity_log.ip_address %></td>
+</tr>

@@ -1,0 +1,26 @@
+<div id="activity_logs" class="container mt-5">
+  <h2 class="mb-4">Historia aktywności</h2>
+
+  <div class="btn-group">
+    <%= link_to 'Logowanie', activity_logs_source_path(:login), class: navigation_class(:login) %>
+    <%= link_to 'Wydarzenia', activity_logs_source_path(:event), class: navigation_class(:event) %>
+    <%= link_to 'Posty', activity_logs_source_path(:post), class: navigation_class(:post) %>
+  </div>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Email wykonawcy</th>
+        <th scope="col">Akcja</th>
+        <th scope="col">Obszar aplikacji</th>
+        <th scope="col">Data</th>
+        <th scope="col">Godzina</th>
+        <th scope="col">Adres IP</th>
+      </tr>
+    </thead>
+    <tbody>
+        <% @activity_logs.each do |activity_log| %>
+          <%= render 'row_activity', activity_log: activity_log %>
+        <% end %>
+    </tbody>
+  </table>
+</div>
