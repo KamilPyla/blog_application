@@ -6,6 +6,7 @@ class PostsController < CommonActionController
   before_action :load_action_context, only: %i[create update destroy]
   before_action :verify_params, only: %i[create update]
   before_action :check_ability, only: %i[new edit create update destroy]
+  before_action :owner?, only: %i[edit update destroy]
 
   def index
     @posts = Post.all
@@ -22,7 +23,7 @@ class PostsController < CommonActionController
   def create
     respond_to do |format|
       if @action_context.perform
-        format.html { redirect_to posts_path, notice: 'Dodano post' }
+        format.html { redirect_to @action_context.response, notice: 'Dodano post' }
       else
         format.html { render :new, status: :unprocessable_entity }
       end
@@ -32,7 +33,7 @@ class PostsController < CommonActionController
   def update
     respond_to do |format|
       if @action_context.perform
-        format.html { redirect_to posts_path, notice: 'Edytowano post' }
+        format.html { redirect_to post, notice: 'Edytowano post' }
       else
         format.html { render :edit, status: :unprocessable_entity }
       end
@@ -51,6 +52,10 @@ class PostsController < CommonActionController
 
   private
 
+  def post
+    @object
+  end
+
   def set_object
     @object = Post.find(params[:id])
   end
@@ -61,5 +66,11 @@ class PostsController < CommonActionController
 
   def action_subject
     :post
+  end
+
+  def owner?
+    return if @object.user_id == current_user.id
+
+    render :file => "public/401.html", :status => :unauthorized
   end
 end

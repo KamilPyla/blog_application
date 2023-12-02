@@ -8,6 +8,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'bootsnap', require: false
 gem 'bootstrap'
 gem 'devise', '~> 4.9'
+gem 'dropzonejs-rails'
 gem 'i18n'
 gem 'image_processing', '~> 1.2'
 gem 'importmap-rails'

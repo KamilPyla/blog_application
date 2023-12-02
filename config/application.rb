@@ -21,6 +21,9 @@ module BlogApplication
     config.generators.test_framework :rspec
 
     config.i18n.default_locale = :pl
+
+    config.active_record.default_timezone = :local
+    config.time_zone = 'Warsaw'
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files

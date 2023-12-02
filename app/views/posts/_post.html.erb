@@ -1,16 +1,13 @@
-<div id="<%= dom_id post %>">
-  <p>
-    <strong> <%= post.title %> </strong>
-  </p>
+<div id="<%= dom_id post %>" class="m-4">
+  <h1> <%= post.title %> </h1>
 
-  <%= post.body %>
+  <p><%= post.body %></p>
   <br/>
 
   <% if post.image.content_type.in?(%w[image/jpeg image/png])%>
     <%= link_to image_tag(post.image_as_thumbnail), post.image %>
   <% end %>
 
-  <hr/>
   <% post.pictures.each do |picture| %>
     <%= link_to image_tag(post.picture_as_thumbnail(picture)), picture %>
   <% end if post.pictures.attached? %>

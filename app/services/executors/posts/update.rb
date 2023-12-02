@@ -24,7 +24,7 @@ module Executors
       def excepted_attributes
         [].tap do |attrs|
           attrs << :image if form_attributes[:image].blank?
-          attrs << :pictures if form_attributes[:pictures] = ['']
+          attrs << :pictures if form_attributes[:pictures] == ['']
         end
       end
     end
