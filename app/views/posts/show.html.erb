@@ -1,7 +1,3 @@
 <%= render @object %>
 
-<div>
-    <%= link_to "Edytuj post", edit_post_path(@object), class: 'btn btn-info mb-2' %> |
-    <%= link_to "Powrót", posts_path, class: 'btn btn-light mb-2'%>
-    <%= button_to "Usuń post", @object, method: :delete, class: 'btn btn-danger'%>
-</div>
+<%= render 'actions', post: @object if owner?(@object) %>

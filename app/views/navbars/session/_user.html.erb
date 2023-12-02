@@ -4,8 +4,8 @@
     Więcej
   </a>
   <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+    <li><%= link_to 'Wiadomości', "#", class: 'dropdown-item' %></li>
     <li><%= link_to 'Historia Aktywności', activity_logs_path, class: 'dropdown-item' %></li>
-    <li><a class="dropdown-item" href="#">Another action</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><%= link_to "Wyloguj się", destroy_user_session_path, class: "dropdown-item", data: { turbo_method: :delete } %></li>
   </ul>
