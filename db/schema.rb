@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_27_191100) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_02_154101) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -76,6 +76,15 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_27_191100) do
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   end
 
+  create_table "blockades", force: :cascade do |t|
+    t.integer "blocker_id", null: false
+    t.integer "blocked_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["blocked_id"], name: "index_blockades_on_blocked_id"
+    t.index ["blocker_id"], name: "index_blockades_on_blocker_id"
+  end
+
   create_table "comments", force: :cascade do |t|
     t.bigint "user_id"
     t.string "subject_type"
@@ -120,6 +129,15 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_27_191100) do
     t.datetime "updated_at", null: false
     t.index ["message_threads_id"], name: "index_messages_on_message_threads_id"
     t.index ["user_id"], name: "index_messages_on_user_id"
+  end
+
+  create_table "observations", force: :cascade do |t|
+    t.integer "follower_id", null: false
+    t.integer "followed_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["followed_id"], name: "index_observations_on_followed_id"
+    t.index ["follower_id"], name: "index_observations_on_follower_id"
   end
 
   create_table "post_categories", force: :cascade do |t|
@@ -180,7 +198,11 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_27_191100) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.uuid "uuid", default: -> { "gen_random_uuid()" }
+    t.string "first_name"
+    t.string "last_name"
+    t.string "login"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["login"], name: "index_users_on_login", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
