@@ -22,7 +22,7 @@ class CommonActionController < ApplicationController
 
     respond_to do |format|
       format.html do
-        flash[:alert] = 'blabla'
+        flash[:alert] = form.error_message
         render redirector.fetch(action_name)
       end
     end
