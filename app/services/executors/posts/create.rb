@@ -2,15 +2,13 @@ module Executors
   module Posts
     class Create < Executors::Base
       def perform
-        return false unless post.valid?
-
-        post.save!
+        create_post!
       end
 
       private
 
-      def post
-        user.posts.build(form_attributes)
+      def create_post!
+        user.posts.create!(form_attributes)
       end
     end
   end

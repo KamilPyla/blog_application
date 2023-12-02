@@ -9,7 +9,7 @@ class ActionContext
 
   def perform
     ActiveRecord::Base.transaction do
-      executor_class.perform(
+      @response = executor_class.perform(
         user:,
         object:,
         form_attributes:
@@ -20,6 +20,8 @@ class ActionContext
   def form
     form_klass.new(params)
   end
+
+  attr_accessor :response
 
   private
 
