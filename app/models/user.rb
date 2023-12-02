@@ -44,4 +44,8 @@ class User < ApplicationRecord
   def full_name
     "#{first_name} #{last_name}"
   end
+
+  def avatar_preload
+    avatar.attached? ? avatar : ''
+  end
 end

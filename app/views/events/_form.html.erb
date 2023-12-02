@@ -40,16 +40,12 @@
     </div>
   </div>
 
-
-  <div class="form-group my-4">
-    <%= content_tag :main, class: "container mx-auto pt-6 h-screen", data: { controller: 'image-upload-preview' } do %>
-      <%= form.label :image %>
-      <%= form.file_field :image, class: "form-control-file", data: { target: 'image-upload-preview.input', action: 'image-upload-preview#setImagePreview' }%>
-      <%= image_tag event.image_preload, class: 'h-5/6 w-5/6 object-contain object-center', 
-            data: { target: 'image-upload-preview.preview' }  if event %>
-      <% end %>
-  </div>
-
+  <%= content_tag :main, class: "form-group", data: { controller: 'image-upload-preview' } do %>
+    <%= form.label :image %>
+    <%= form.file_field :image, class: "form-control", data: { target: 'image-upload-preview.input', action: 'image-upload-preview#setImagePreview' }%>
+    <%= image_tag event.image_preload, class: 'my-3', 
+        data: { target: 'image-upload-preview.preview' }  if event %>
+  <% end %>
 
   <div class="form-group">
     <%= form.rich_text_area :content, class: "form-control" %>

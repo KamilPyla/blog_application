@@ -11,7 +11,7 @@ class PostsController < CommonActionController
   def index
     @posts = Post.with_rich_text_body
                  .includes(:post_category, :user, image_attachment: :blob)
-                 .order(created_at: :desc).all
+                 .order(created_at: :desc).page(params[:page])
   end
 
   def show; end
