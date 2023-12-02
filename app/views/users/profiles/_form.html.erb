@@ -15,13 +15,16 @@
   </div>
 
   <div class="form-group">
-    <%= form.rich_text_area :about_youself, class: "form-control mb-2" %>
+    <%= form.label :about_me %>
+    <%= form.rich_text_area :about_me, class: "form-control mb-2" %>
   </div>
 
-  <div class="form-group mb-2">
+  <%= content_tag :div, class: "form-group", data: { controller: 'image-upload-preview' } do %>
     <%= form.label :avatar %>
-    <%= form.file_field :avatar, class: "form-control" %>
-  </div>
+    <%= form.file_field :avatar, class: "form-control", data: { target: 'image-upload-preview.input', action: 'image-upload-preview#setImagePreview' }%>
+    <%= image_tag user.avatar_preload, class: 'my-3', 
+          data: { target: 'image-upload-preview.preview' }  if user %>
+  <% end %>
 
   <div class="form-group mb-2">
     <%= form.label :password %>

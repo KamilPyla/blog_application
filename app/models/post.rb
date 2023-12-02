@@ -12,6 +12,10 @@ class Post < ApplicationRecord
     image.variant(resize_to_limit: [300, 300]).processed
   end
 
+  def image_preload
+    image.attached? ? image : ''
+  end
+
   def picture_as_thumbnail(picture)
     picture.variant(resize_to_limit: [300, 300]).processed
   end
