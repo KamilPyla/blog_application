@@ -40,4 +40,8 @@ class User < ApplicationRecord
   def blocked?(user)
     blocked_users.pluck(:id).include?(user.id)
   end
+
+  def full_name
+    "#{first_name} #{last_name}"
+  end
 end
