@@ -9,7 +9,9 @@ class PostsController < CommonActionController
   before_action :owner?, only: %i[edit update destroy]
 
   def index
-    @posts = Post.all
+    @posts = Post.with_rich_text_body
+                 .includes(:post_category, :user, image_attachment: :blob)
+                 .order(created_at: :desc).all
   end
 
   def show; end

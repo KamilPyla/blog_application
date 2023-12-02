@@ -1,10 +1,11 @@
-<h1>Posts</h1>
+<h1> Wyszukiwarka </h1>
 
 <div id="posts">
-  <% @posts.each do |post| %>
-    <%= render post %>
-    <p>
-      <%= link_to "Show this post", post, class: 'btn btn-primary'%>
-    </p>
-  <% end %>
+  <div class="container text-center">
+    <% @posts.each do |post| %>
+      <div class="row rounded-3 grey my-3 p-3">
+        <%= render 'post_row', post: post %>
+      </div>
+    <% end %>
+  </div>
 </div>

@@ -5,7 +5,12 @@
   </div>
 
   <div class="form-group">
-    <%= form.rich_text_area :body, class: "form-control mb-2" %>
+    <%= form.label :post_category %>
+    <%= form.select :post_category_id, PostCategory.pluck(:name, :id), {}, { class: 'form-select mb-4' } %>
+  </div>
+
+  <div class="form-group">
+    <%= form.rich_text_area :body, class: "form-control my-2" %>
   </div>
 
   <div class="form-group mb-2">

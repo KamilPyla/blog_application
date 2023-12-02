@@ -16,26 +16,3 @@ class Post < ApplicationRecord
     picture.variant(resize_to_limit: [300, 300]).processed
   end
 end
-
-[
-  'Technologia i Gadżety',
-  'Podróże',
-  'Sztuka i Kultura',
-  'Zdrowie i Fitness',
-  'Kulinaria i Gotowanie',
-  'Motywacja i Rozwój Osobisty',
-  'Recenzje Książek i Filmów',
-  'Moda i Styl Życia',
-  'Sporty Ekstremalne',
-  'Edukacja i Nauka',
-  'Fotografia',
-  'Biznes i Kariera',
-  'Rodzina i Parenting',
-  'Design i Architektura',
-  'Środowisko i Ekologia',
-  'Hobby i Rękodzieło',
-  'Finanse i Inwestowanie',
-  'Porady Techniczne',
-  'Historia i Tradycje',
-  'Humor i Rozrywka'
-  ]
