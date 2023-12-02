@@ -4,15 +4,15 @@ module ActivityLogsHelper
   end
 
   def action_kind(kind)
-    action_kind_map[kind.to_sym]
+    action_kind_map.fetch(kind.to_sym, 'Nierozpoznany obszar')
   end
 
   def action_kind_map
     {
       login: 'Logowanie',
       event: 'Wydarzenia',
-      post: 'Posty'
-
+      post: 'Posty',
+      user: 'Profil'
     }
   end
 end

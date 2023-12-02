@@ -4,6 +4,7 @@ class ActivityLog < ApplicationRecord
   enum action_subject: {
     login: 'login',
     post: 'post',
-    event: 'event'
+    event: 'event',
+    user: 'user'
   }
 end
