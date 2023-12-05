@@ -7,6 +7,7 @@ class PostsController < CommonActionController
   before_action :verify_params, only: %i[create update]
   before_action :check_ability, only: %i[new edit create update destroy]
   before_action :owner?, only: %i[edit update destroy]
+  before_action :set_user, only: :users_posts
 
   def index
     @posts = Post.with_rich_text_body
@@ -15,6 +16,12 @@ class PostsController < CommonActionController
   end
 
   def show; end
+
+  def users_posts
+    @posts = @user.posts.with_rich_text_body
+                  .includes(:post_category, :user, image_attachment: :blob)
+                  .order(created_at: :desc).page(params[:page])
+  end
 
   def new
     @object = Post.new
@@ -53,6 +60,10 @@ class PostsController < CommonActionController
   end
 
   private
+
+  def set_user
+    @user ||= User.find_by uuid: params[:uuid]
+  end
 
   def post
     @object
