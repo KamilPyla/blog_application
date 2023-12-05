@@ -26,11 +26,20 @@ Rails.application.routes.draw do
     get '/name/:login', to: 'profiles#show', as: 'profile_by_login'
 
     get '/edit/:uuid', to: 'profiles#edit', as: 'edit_profile'
+    get '/followers/:uuid', to: 'profiles#show_followers', as: :show_followers
+    get '/following/:uuid', to: 'profiles#show_following', as: :show_following
+    get '/blocked', to: 'profiles#show_blocked', as: :show_blocked
 
     post '/edit/:uuid', to: 'profiles#update', as: 'update_profile'
     post '/block/:uuid', to: 'profiles#block', as: 'profile_block'
-    post '/observe/:uuid', to: 'profiles#ubserve', as: 'profile_observe'
+    post '/unblock/:uuid', to: 'profiles#unblock', as: 'profile_unblock'
+    post '/follow/:uuid', to: 'profiles#follow', as: 'profile_follow'
+    post '/unfollow/:uuid', to: 'profiles#unfollow', as: 'profile_unfollow'
+
   end
+
+  get '/posts/user/:uuid', to: 'posts#users_posts', as: :users_posts
+  get '/events/user/:uuid', to: 'events#users_events', as: :users_events
 
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
