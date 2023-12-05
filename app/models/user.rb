@@ -37,15 +37,30 @@ class User < ApplicationRecord
 
   validates :login, uniqueness: true
 
-  def blocked?(user)
-    blocked_users.pluck(:id).include?(user.id)
+  def blocked?(other_user)
+    blocked_users.pluck(:id).include?(other_user.id)
+  end
+
+  def following?(other_user)
+    following.pluck(:id).include?(other_user.id)
   end
 
   def full_name
-    "#{first_name} #{last_name}"
+    return "#{first_name} #{last_name}" if all_personal_data_filled?
+
+    email
+  end
+
+  def all_personal_data_filled?
+    first_name.present? && last_name.present? &&
+      login.present?
   end
 
   def avatar_preload
     avatar.attached? ? avatar : ''
+  end
+
+  def mini_avatar
+    avatar.variant(resize_to_limit: [150, 150]).processed
   end
 end

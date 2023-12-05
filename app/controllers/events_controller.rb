@@ -6,12 +6,17 @@ class EventsController < CommonActionController
   before_action :load_action_context, only: %i[create update destroy]
   before_action :verify_params, only: %i[create update]
   before_action :check_ability, only: %i[new edit create update destroy]
+  before_action :set_user, only: :users_events
 
   def index
-    @events = Event.all
+    @events = Event.includes(image_attachment: :blob).order(start_at: :desc)
   end
 
   def show; end
+
+  def users_events
+    @events = @user.events.includes(image_attachment: :blob).order(start_at: :desc)
+  end
 
   def new
     @object = Event.new
@@ -39,7 +44,6 @@ class EventsController < CommonActionController
     end
   end
 
-  # DELETE /objects/1 or /objects/1.json
   def destroy
     respond_to do |format|
       if @action_context.perform
@@ -51,6 +55,10 @@ class EventsController < CommonActionController
   end
 
   private
+
+  def set_user
+    @user ||= User.find_by uuid: params[:uuid]
+  end
 
   def set_object
     @object = Event.find(params[:id])

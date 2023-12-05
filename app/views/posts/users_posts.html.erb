@@ -1,0 +1,13 @@
+<%= turbo_frame_tag :dynamic_content do %>
+  <div id="posts">
+    <div class="container text-center">
+      <% @posts.each do |post| %>
+        <div class="row rounded-3 grey my-3 p-3">
+          <%= render 'post_row', post: post %>
+        </div>
+      <% end %>
+    </div>
+    
+    <div class="d-flex justify-content-center"><%= paginate @posts %></div>
+  </div>
+<% end %>

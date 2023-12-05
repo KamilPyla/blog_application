@@ -1,7 +1,9 @@
 module Executors
   module Users
-    class Following < Executors::Base
+    class Follow < Executors::Base
       def perform
+        return false if already_exists?
+
         observation.save!
       end
 
@@ -9,6 +11,10 @@ module Executors
 
       def action_user
         object
+      end
+
+      def already_exists?
+        Observation.where(follower: user, followed: action_user).any?
       end
 
       def observation

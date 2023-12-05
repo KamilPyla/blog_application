@@ -1,0 +1,8 @@
+<li class="list-group-item d-flex align-items-start">
+  <div class="ms-2 me-auto">
+    <%= link_to 'Zablokowani użytkownicy', users_show_blocked_path, class: 'link-underline link-underline-opacity-0'%>
+  </div>
+  <span class="badge bg-primary rounded-pill">
+    <%= presenter.total_blocked %>
+  </span>
+</li>

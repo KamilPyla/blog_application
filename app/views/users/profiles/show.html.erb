@@ -1,0 +1,30 @@
+<div class="container my-5">
+  <div class="row">
+    <div class="col-4">
+      <%= image_tag @user_presenter.avatar_picture, class: 'img-thumbnail rounded-circle', style: 'width: 300px'%>
+    </div>    
+    
+    <div class="col-8" style="max-height: 300px">
+      <div class="row">
+        <div class = 'col'>
+          <h2><%= @user_presenter.full_name %></h2>
+        </div>
+        <div class = 'col-8'>
+          <%= render action_partial_name(@user_presenter.user), presenter: @user_presenter %>
+        </div>
+      </div>
+      <div class="row">
+        <%= @user_presenter.about_me %>
+      </div>
+    </div>
+  </div>
+  <div class="row my-5">
+    <div class="col-4">
+      <%= render 'stats_table', presenter: @user_presenter %>
+    </div>
+    <div class="col-8">
+      <turbo-frame id="dynamic_content" src="<%= users_posts_path(@user_presenter.uuid) %>">
+      </turbo-frame>
+    </div>
+  </div>
+</div>

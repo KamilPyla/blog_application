@@ -7,7 +7,7 @@
 </div>
 
 <div class='col align-text-middle'>
-  <%= link_to post.user.full_name, users_profile_path(post.user.uuid), class: 'btn btn-outline-success'%>
+  <%= link_to post.user.full_name, users_profile_path(post.user.uuid), class: 'btn btn-outline-success', data: { turbo: false } %>
 </div>
 
 <div class='col'>
