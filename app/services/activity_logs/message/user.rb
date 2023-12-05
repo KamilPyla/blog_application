@@ -7,12 +7,10 @@ module ActivityLogs
         {
           update: 'Edytowano profil',
           block: "Zablokowano użytkowika o emailu: #{email}",
-          following: "Dodano do obserwowanych użytkownika o emailu: #{email}"
+          unblock: "Odblokowano użytkowika o emailu: #{email}",
+          follow: "Dodano do obserwowanych użytkownika o emailu: #{email}",
+          unfollow: "Usunięto z obserwowanych użytkownika o emailu: #{email}"
         }
-      end
-
-      def destory_action
-        object ? "Usunięto post o nazwie: #{object.title}" : 'Usunięto post.'
       end
 
       def email

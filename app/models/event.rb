@@ -1,5 +1,5 @@
 class Event < ApplicationRecord
-  belongs_to :user
+  belongs_to :user, counter_cache: :total_events
   has_many :tickets
 
   has_one_attached :image

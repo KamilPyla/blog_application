@@ -1,5 +1,5 @@
 class Post < ApplicationRecord
-  belongs_to :user
+  belongs_to :user, counter_cache: :total_posts
   belongs_to :post_category
 
   has_one_attached :image
