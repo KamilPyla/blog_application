@@ -1,0 +1,5 @@
+<div class="btn-group">
+  <%= button_to "Dodaj post", new_post_path, method: :get, class: 'btn btn-success mx-2', data: { turbo_frame: :dynamic_content } %>
+  <%= button_to "Dodaj wydarzenie", new_event_path, method: :get, class: 'btn btn-primary mx-2' %>
+  <%= button_to "Edytuj profil", users_edit_profile_path(current_user.uuid), method: :get, class: 'btn btn-info mx-2' %>
+</div>
