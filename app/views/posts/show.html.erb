@@ -1,3 +1,5 @@
-<%= render @object %>
+<%= turbo_frame_tag :dynamic_content do %>
+  <%= render @object %>
+<% end %>
 
 <%= render 'actions', post: @object if post_author? %>

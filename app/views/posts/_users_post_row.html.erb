@@ -6,12 +6,8 @@
   <%= post.post_category.name %>
 </div>
 
-<div class='col align-text-middle'>
-  <%= link_to post.user.full_name, users_profile_path(post.user.uuid), class: 'btn btn-outline-success', data: { turbo: false } %>
-</div>
-
 <div class='col'>
-  <%= post.body.to_plain_text.first(150) %>
+  <%= post.body.to_plain_text.first(50) + '...' %>
 </div>
 
 <div class='col' style="min-width: 300px">
@@ -20,8 +16,7 @@
   <% end %>
 </div>
 
-
 <div class='col align-text-middle'>
-  <%= link_to 'Zobacz wpis', post, class: 'btn btn-primary', data: { turbo: false } %>
+  <%= link_to 'Zobacz wpis', post, class: 'btn btn-primary mx-2', data: { turbo: false } %>
 </div>
 

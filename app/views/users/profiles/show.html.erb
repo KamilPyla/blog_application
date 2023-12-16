@@ -23,8 +23,7 @@
       <%= render 'stats_table', presenter: @user_presenter %>
     </div>
     <div class="col-8">
-      <turbo-frame id="dynamic_content" src="<%= users_posts_path(@user_presenter.uuid) %>">
-      </turbo-frame>
+      <%= turbo_frame_tag :dynamic_content, src: users_posts_path(@user_presenter.uuid), data: { missing: "show" }%>
     </div>
   </div>
 </div>
