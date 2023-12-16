@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_04_195004) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_06_073251) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -92,6 +92,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_04_195004) do
     t.text "content", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "total_reactions", default: 0
     t.index ["subject_type", "subject_id"], name: "index_comments_on_subject"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
@@ -108,6 +109,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_04_195004) do
     t.integer "total_tickets"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "total_reactions", default: 0
     t.index ["user_id"], name: "index_events_on_user_id"
   end
 
@@ -153,6 +155,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_04_195004) do
     t.bigint "post_category_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "total_reactions", default: 0
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
@@ -178,6 +181,16 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_04_195004) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_products_on_user_id"
+  end
+
+  create_table "reactions", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "subject_type"
+    t.bigint "subject_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["subject_type", "subject_id"], name: "index_reactions_on_subject"
+    t.index ["user_id"], name: "index_reactions_on_user_id"
   end
 
   create_table "tickets", force: :cascade do |t|
@@ -219,6 +232,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_04_195004) do
   add_foreign_key "messages", "message_threads", column: "message_threads_id"
   add_foreign_key "messages", "users"
   add_foreign_key "product_sub_categories", "product_categories"
+  add_foreign_key "reactions", "users"
   add_foreign_key "tickets", "events"
   add_foreign_key "tickets", "users"
 end

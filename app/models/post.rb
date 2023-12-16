@@ -1,4 +1,7 @@
 class Post < ApplicationRecord
+  include Commentable
+  include Reactable
+
   belongs_to :user, counter_cache: :total_posts
   belongs_to :post_category
 
