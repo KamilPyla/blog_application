@@ -1,5 +1,6 @@
 module ActivityLogs
   module Loggable
+    extend ActiveSupport::Concern
     extend ::Transactionable
 
     def create_log

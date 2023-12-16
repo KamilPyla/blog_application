@@ -2,13 +2,27 @@ module Users
   class ProfilesController < CommonActionController
     include ::ActivityLogs::Loggable
 
-    before_action :set_object, only: %i[show edit update block following]
+    before_action :set_object, only: %i[show edit update block follow unblock unfollow show_following show_followers]
     before_action :validate_password, only: %i[update]
-    after_action :create_log, only: %i[update block following]
-    before_action :load_action_context, only: %i[update block following]
+    after_action :create_log, only: %i[update block follow unblock unfollow]
+    before_action :load_action_context, only: %i[update block follow unfollow unblock]
+    before_action :self_action, only: %i[follow block unfollow unblock]
 
     def show
       redirect_to root_path, alert: 'Nie znaleziono użytkownika' if @object.blank?
+      user_presenter
+    end
+
+    def show_followers
+      @followers = @object.followers.includes(avatar_attachment: :blob)
+    end
+
+    def show_following
+      @following = @object.following.includes(avatar_attachment: :blob)
+    end
+
+    def show_blocked
+      @blocked = current_user.blocked_users.includes(avatar_attachment: :blob)
     end
 
     def edit
@@ -26,35 +40,51 @@ module Users
     end
 
     def block
-      if self_action
-        redirect_to users_profile_path(@object.uuid), status: :unprocessable_entity, alert: 'Nie możesz zablokować samego siebie'
-      end
-
       respond_to do |format|
         if @action_context.perform
           format.html { redirect_to users_profile_path(@object.uuid), notice: 'Zablokowano użytkownika' }
+          format.turbo_stream {}
         else
           format.html { redirect_to users_profile_path(@object.uuid), alert: 'Akcja nie udała się' }
         end
       end
     end
 
-    def following
-      if self_action
-        render users_profile_path(current_user), status: :unprocessable_entity, alert: 'Nie możesz obserwować samego siebie'
-      end
-
+    def unblock
       respond_to do |format|
         if @action_context.perform
-          format.html { redirect_to profile_path(@object.uuid), notice: 'Dodano do obserwowanych' }
+          format.html { redirect_to users_profile_path(@object.uuid), notice: 'Odblokowano użytkownika' }
+          format.turbo_stream {}
         else
-          format.html { redirect_to profile_path(@object.uuid), alert: 'Akcja nie udała się' }
+          format.html { redirect_to users_profile_path(@object.uuid), alert: 'Akcja nie udała się' }
         end
       end
     end
 
-    def preseter
-      ::UserPresenter.new(@object)
+    def follow
+      respond_to do |format|
+        if @action_context.perform
+          format.html { redirect_to users_profile_path(@object.uuid), notice: 'Dodano do obserwowanych' }
+          format.turbo_stream {}
+        else
+          format.html { redirect_to users_profile_path(@object.uuid), alert: 'Akcja nie udała się' }
+        end
+      end
+    end
+
+    def unfollow
+      respond_to do |format|
+        if @action_context.perform
+          format.html { redirect_to users_profile_path(@object.uuid), notice: 'Usunięto z obserwowanych' }
+          format.turbo_stream {}
+        else
+          format.html { redirect_to users_profile_path(@object.uuid), alert: 'Akcja nie udała się' }
+        end
+      end
+    end
+
+    def user_presenter
+      @user_presenter ||= ::UserPresenter.new(@object)
     end
 
     private
@@ -68,7 +98,9 @@ module Users
     end
 
     def self_action
-      current_user.uuid == @object.uuid
+      return unless current_user.uuid == @object.uuid
+
+      redirect_to users_profile_path(@object.uuid), alert: 'Nie możesz wykonać tej akcji'
     end
 
     def action_subject

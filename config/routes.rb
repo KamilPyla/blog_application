@@ -28,7 +28,7 @@ Rails.application.routes.draw do
     get '/edit/:uuid', to: 'profiles#edit', as: 'edit_profile'
     get '/followers/:uuid', to: 'profiles#show_followers', as: :show_followers
     get '/following/:uuid', to: 'profiles#show_following', as: :show_following
-    get '/blocked', to: 'profiles#show_blocked', as: :show_blocked
+    get '/blocked/:uuid', to: 'profiles#show_blocked', as: :show_blocked
 
     post '/edit/:uuid', to: 'profiles#update', as: 'update_profile'
     post '/block/:uuid', to: 'profiles#block', as: 'profile_block'
