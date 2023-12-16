@@ -1,4 +1,6 @@
 class Event < ApplicationRecord
+  include Reactable
+
   belongs_to :user, counter_cache: :total_events
   has_many :tickets
 
