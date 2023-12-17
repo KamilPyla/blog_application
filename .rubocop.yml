@@ -8,3 +8,9 @@ AllCops:
 Metrics/MethodLength:
   Enable: False
 
+Metrics/MethodLength:
+  Enable: False
+
+Metrics/LengthClass:
+  Enable: False
+

@@ -1,0 +1,5 @@
+<%= turbo_frame_tag :dynamic_content do %>
+  <% @blocked.each do |user| %>
+    <%= render 'user_row', user: user %>
+  <% end %>
+<% end %>

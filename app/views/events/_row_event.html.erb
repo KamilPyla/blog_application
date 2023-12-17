@@ -7,5 +7,5 @@
   <td><%= event.street %></td>
   <td><%= event.price %></td>
   <td><%= event.max_tickets - event.total_tickets.to_i %></td>
-  <td><%= link_to 'Zobacz szczegóły', event, class: 'btn btn-primary'  %></td>
+  <td><%= link_to 'Zobacz szczegóły', event, class: 'btn btn-primary', data: { turbo: false } %></td>
 </tr>

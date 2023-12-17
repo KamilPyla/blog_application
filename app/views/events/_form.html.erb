@@ -1,59 +1,60 @@
-<%= form_with(model: event) do |form| %>
-  <div class="form-row">
+<%= turbo_frame_tag :dynamic_content do %>
+  <%= form_with(model: event) do |form| %>
+    <div class="form-row">
+      <div class="form-group">
+        <%= form.label :title %>
+        <%= form.text_field :title, class: "form-control"%>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col">
+        <%= form.label :date %>
+        <%= form.date_field :date, class: "form-control"%>
+      </div>
+      <div class="form-group col">
+        <%= form.label :start_at %>
+        <%= form.time_field :start_at, class: "form-control" %>
+      </div>
+    </div>
+
+
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <%= form.label :city %>
+        <%= form.text_field :city, class: "form-control" %>
+      </div>
+
+      <div class="form-group col-md-6">
+        <%= form.label :street %>
+        <%= form.text_field :street, class: "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= form.label :max_tickets %>
+        <%= form.number_field :max_tickets, class: "form-control" %>
+      </div>
+      
+      <div class="form-group">
+        <%= form.label :price %>
+        <%= form.number_field :price, class: "form-control"%>
+      </div>
+    </div>
+
+    <%= content_tag :main, class: "form-group", data: { controller: 'image-upload-preview' } do %>
+      <%= form.label :image %>
+      <%= form.file_field :image, class: "form-control", data: { target: 'image-upload-preview.input', action: 'image-upload-preview#setImagePreview' }%>
+      <%= image_tag event.image_preload, class: 'my-3', 
+          data: { target: 'image-upload-preview.preview' }  if event %>
+    <% end %>
+
     <div class="form-group">
-      <%= form.label :title %>
-      <%= form.text_field :title, class: "form-control"%>
-    </div>
-  </div>
-
-  <div class="form-row">
-    <div class="form-group col">
-      <%= form.label :date %>
-      <%= form.date_field :date, class: "form-control"%>
-    </div>
-    <div class="form-group col">
-      <%= form.label :start_at %>
-      <%= form.time_field :start_at, class: "form-control" %>
-    </div>
-  </div>
-
-
-  <div class="form-row">
-    <div class="form-group col-md-6">
-      <%= form.label :city %>
-      <%= form.text_field :city, class: "form-control" %>
+      <%= form.rich_text_area :content, class: "form-control" %>
     </div>
 
-    <div class="form-group col-md-6">
-      <%= form.label :street %>
-      <%= form.text_field :street, class: "form-control" %>
+    <div>
+      <%= form.submit class: 'btn btn-primary my-4' %>
     </div>
-
-    <div class="form-group">
-      <%= form.label :max_tickets %>
-      <%= form.number_field :max_tickets, class: "form-control" %>
-    </div>
-    
-    <div class="form-group">
-      <%= form.label :price %>
-      <%= form.number_field :price, class: "form-control"%>
-    </div>
-  </div>
-
-  <%= content_tag :main, class: "form-group", data: { controller: 'image-upload-preview' } do %>
-    <%= form.label :image %>
-    <%= form.file_field :image, class: "form-control", data: { target: 'image-upload-preview.input', action: 'image-upload-preview#setImagePreview' }%>
-    <%= image_tag event.image_preload, class: 'my-3', 
-        data: { target: 'image-upload-preview.preview' }  if event %>
   <% end %>
-
-  <div class="form-group">
-    <%= form.rich_text_area :content, class: "form-control" %>
-  </div>
-
-  <div>
-    <%= form.submit class: 'btn btn-primary my-4' %>
-  </div>
 <% end %>
-
 

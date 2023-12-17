@@ -1,0 +1,11 @@
+<%= turbo_frame_tag :dynamic_content do %>
+  <div id="posts">
+    <div id="anchorLink">
+      <div class="container text-center">
+        <% @following.each do |user| %>          
+          <%= render 'user_row', user: user, following: true %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>
