@@ -7,6 +7,8 @@ module Users
     after_action :create_log, only: %i[update block follow unblock unfollow]
     before_action :load_action_context, only: %i[update block follow unfollow unblock]
     before_action :self_action, only: %i[follow block unfollow unblock]
+    after_action :broadcast_stats_changes, only: %i[follow block unfollow unblock]
+    after_action :broadcast_changes, only: %i[follow block unfollow unblock]
 
     def show
       redirect_to root_path, alert: 'Nie znaleziono użytkownika' if @object.blank?
@@ -88,6 +90,24 @@ module Users
     end
 
     private
+
+    def broadcast_changes
+      Turbo::StreamsChannel.broadcast_replace_to :"dynamic_users_list_#{current_user.uuid}",
+                                                 target: "user_#{@object.uuid}",
+                                                 partial: 'users/profiles/user_row',
+                                                 locals: { user: @object, current_user: current_user }
+    end
+
+    def broadcast_stats_changes
+      Turbo::StreamsChannel.broadcast_replace_to :"dynamic_stats_#{current_user.uuid}",
+                                                 target: "user_stats_#{current_user.uuid}",
+                                                 partial: 'users/profiles/stats_table',
+                                                 locals: { presenter: current_user_presenter, current_user: current_user }
+    end
+
+    def current_user_presenter
+      ::UserPresenter.new(current_user.reload)
+    end
 
     def permitted_params
       params.fetch(:user, params).permit!
