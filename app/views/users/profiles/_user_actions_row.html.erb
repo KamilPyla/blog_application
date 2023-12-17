@@ -1,6 +1,6 @@
 <div class='col align-text-middle'>
   <% if current_user.following?(user) %>
-    <%= button_to "Obserwujesz", users_profile_unfollow_path(user.uuid), method: :post, class: 'btn btn-success mx-2 my-auto', data: { turbo_frame: :dynamic_content } %>
+    <%= button_to "Obserwujesz", users_profile_unfollow_path(user.uuid), method: :post, class: 'btn btn-success mx-2 my-auto', data: { turbo_method: :post } %>
   <% else %>
     <%= button_to "Obserwuj", users_profile_follow_path(user.uuid), method: :post, class: 'btn btn-outline-success mx-2 my-auto', data: { turbo_method: :post } %>
   <% end %>

@@ -20,9 +20,11 @@
   </div>
   <div class="row my-5">
     <div class="col-4">
+      <%= turbo_stream_from :"dynamic_stats_#{@user_presenter.uuid}"%>
       <%= render 'stats_table', presenter: @user_presenter %>
     </div>
     <div class="col-8">
+      <%= turbo_stream_from :"dynamic_users_list_#{current_user.uuid}" %>
       <%= turbo_frame_tag :dynamic_content, src: users_posts_path(@user_presenter.uuid), data: { missing: "show" }%>
     </div>
   </div>

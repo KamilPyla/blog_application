@@ -1,9 +1,5 @@
 <%= turbo_frame_tag :dynamic_content do %>
-    <div class="container text-center">
-      <% @blocked.each do |user| %>
-        <div class="row rounded-3 grey my-3 p-3">
-          <%= render 'user_row', user: user %>
-        </div>
-      <% end %>
-    </div>
+  <% @blocked.each do |user| %>
+    <%= render 'user_row', user: user %>
+  <% end %>
 <% end %>

@@ -2,10 +2,8 @@
   <div id="posts">
     <div id="anchorLink">
       <div class="container text-center">
-        <% @following.each do |user| %>
-          <div class="row rounded-3 grey my-3 p-3">
-            <%= render 'user_row', user: user, following: true %>
-          </div>
+        <% @following.each do |user| %>          
+          <%= render 'user_row', user: user, following: true %>
         <% end %>
       </div>
     </div>

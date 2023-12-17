@@ -1,16 +1,34 @@
-<div class='col' style="min-width: 150px">
-  <% if user.avatar.content_type.in?(%w[image/jpeg image/png])%>
-    <%= image_tag user.mini_avatar, class: 'rounded-circle'%>
+<div class="row rounded-3 grey my-3 p-3" id=<%= "user_#{user.uuid}"%>>
+  <div class='col' style="min-width: 150px">
+    <% if user.avatar.content_type.in?(%w[image/jpeg image/png])%>
+      <%= image_tag user.mini_avatar, class: 'rounded-circle'%>
+    <% end %>
+  </div>
+
+  <div class='col align-text-middle align-middle'>
+      <%= link_to user.full_name, users_profile_path(user.uuid), class: 'btn btn-outline-primary my-auto', data: { turbo: false } %>
+  </div>
+
+  <% if current_user != user %>
+    
+    <div class='col align-text-middle'>
+      <% if current_user.following?(user) %>
+        <%= button_to "Obserwujesz", users_profile_unfollow_path(user.uuid), method: :post, class: 'btn btn-success mx-2 my-auto', data: { turbo_method: :post } %>
+      <% else %>
+        <%= button_to "Obserwuj", users_profile_follow_path(user.uuid), method: :post, class: 'btn btn-outline-success mx-2 my-auto', data: { turbo_method: :post } %>
+      <% end %>
+    </div>
+
+    <div class='col align-text-middle'>
+      <% if current_user.blocked?(user) %>
+        <%= button_to "Zablokowany", users_profile_unblock_path(user.uuid), method: :post, class: 'btn btn-danger mx-2 my-auto', data: { turbo_method: :post } %>
+      <% else %>
+        <%= button_to "Zablokuj", users_profile_block_path(user.uuid), method: :post, class: 'btn btn-outline-danger mx-2 my-auto', data: { turbo_method: :post } %>
+      <% end %>
+    </div>
+
+  <% else %>
+    <div class="col"></div>
+    <div class="col"></div>
   <% end %>
 </div>
-
-<div class='col align-text-middle align-middle'>
-    <%= link_to user.full_name, users_profile_path(user.uuid), class: 'btn btn-outline-primary my-auto', data: { turbo: false } %>
-</div>
-
-<% if current_user != user %>
-  <%= render 'user_actions_row', user: user %>
-<% else %>
-  <div class="col"></div>
-  <div class="col"></div>
-<% end %>
