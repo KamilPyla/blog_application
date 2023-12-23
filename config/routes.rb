@@ -38,6 +38,13 @@ Rails.application.routes.draw do
 
   end
 
+  # post 'like/:kind/:id', to: 'reactions#like', as: 'like_activity'
+  # post 'dislike/:kind/:id', to: 'reactions#dislike', as: 'dislike_activity'
+
+  get 'comment/:kind/:id', to: 'comments#new', as: 'new_comment'
+  post 'comment/:kind/:id', to: 'comments#create', as: 'create_comment'
+  delete 'comment/:id', to: 'comments#destroy', as: 'destroy_comment'
+
   get '/posts/user/:uuid', to: 'posts#users_posts', as: :users_posts
   get '/events/user/:uuid', to: 'events#users_events', as: :users_events
 

@@ -11,6 +11,7 @@ class User < ApplicationRecord
   has_many :activity_logs
   has_many :events
   has_many :tickets
+  has_many :comments
 
   has_many :active_obserwations, class_name: 'Observation',
                                  foreign_key: :follower_id,
