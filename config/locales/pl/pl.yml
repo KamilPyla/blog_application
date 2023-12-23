@@ -36,4 +36,11 @@ pl:
       unfollow:
         notice: Usunięto z obserwowanych
         alert: Akcja nie udała się
+    comment:
+      create:
+        notice: Dodano komentarz
+        alert: Akcja nie udała się
+      destroy:
+        notice: Komentarz został usunięty
+        alert: Akcja nie udała się
     alert: Akcja nie udała się

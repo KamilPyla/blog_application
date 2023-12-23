@@ -1,5 +1,9 @@
 <%= turbo_frame_tag :dynamic_content do %>
   <%= render @object %>
+
+  <%= turbo_frame_tag :"#{@object.class.to_s}_#{@object.id}" do %>
+    <%= link_to 'Dodaj komentarz', new_comment_path(kind: @object.class.to_s, id: @object.id), class: 'btn btn-primary'%>
+  <% end unless @object.user.blocked?(current_user) %>
 <% end %>
 
 <%= render 'actions', post: @object if post_author? %>
