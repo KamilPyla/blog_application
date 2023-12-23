@@ -8,7 +8,7 @@ module BaseActions
     attribute :city, String
 
     attribute :price, Integer
-    attribute :total_tickets, Integer
+    attribute :max_tickets, Integer
 
     attribute :date, Date
     attribute :start_at, Time

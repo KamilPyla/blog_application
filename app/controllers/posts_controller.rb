@@ -32,9 +32,11 @@ class PostsController < CommonActionController
   def create
     respond_to do |format|
       if @action_context.perform
-        format.html { redirect_to @action_context.response, notice: 'Dodano post' }
+        format.html { redirect_to @action_context.response, notice: notice }
+        broadcast_notice
       else
         format.html { render :new, status: :unprocessable_entity }
+        broadcast_alert
       end
     end
   end
@@ -42,9 +44,11 @@ class PostsController < CommonActionController
   def update
     respond_to do |format|
       if @action_context.perform
-        format.html { redirect_to post, notice: 'Edytowano post' }
+        format.html { redirect_to post, notice: notice }
+        broadcast_notice
       else
         format.html { render :edit, status: :unprocessable_entity }
+        broadcast_alert
       end
     end
   end
@@ -52,9 +56,11 @@ class PostsController < CommonActionController
   def destroy
     respond_to do |format|
       if @action_context.perform
-        format.html { redirect_to posts_path, notice: 'Usunięto post' }
+        format.html { redirect_to posts_path, notice: notice }
+        broadcast_notice
       else
         format.html { render edit: :unprocessable_entity }
+        broadcast_alert
       end
     end
   end

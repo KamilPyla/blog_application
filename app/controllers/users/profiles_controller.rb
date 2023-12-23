@@ -34,9 +34,11 @@ module Users
     def update
       respond_to do |format|
         if @action_context.perform
-          format.html { redirect_to users_profile_path(@object.uuid), notice: 'Edytowano profil' }
+          format.html { redirect_to users_profile_path(@object.uuid), notice: notice }
+          broadcast_notice
         else
-          format.html { redirect_to users_edit_profile_path(@object.uuid), alert: 'Akcja nie udała się' }
+          format.html { redirect_to users_edit_profile_path(@object.uuid), alert: alert }
+          broadcast_alert
         end
       end
     end
@@ -44,10 +46,12 @@ module Users
     def block
       respond_to do |format|
         if @action_context.perform
-          format.html { redirect_to users_profile_path(@object.uuid), notice: 'Zablokowano użytkownika' }
+          format.html { redirect_to users_profile_path(@object.uuid), notice: notice }
           format.turbo_stream {}
+          broadcast_notice
         else
-          format.html { redirect_to users_profile_path(@object.uuid), alert: 'Akcja nie udała się' }
+          format.html { redirect_to users_profile_path(@object.uuid), alert: alert }
+          broadcast_alert
         end
       end
     end
@@ -55,10 +59,12 @@ module Users
     def unblock
       respond_to do |format|
         if @action_context.perform
-          format.html { redirect_to users_profile_path(@object.uuid), notice: 'Odblokowano użytkownika' }
+          format.html { redirect_to users_profile_path(@object.uuid), notice: notice }
           format.turbo_stream {}
+          broadcast_notice
         else
-          format.html { redirect_to users_profile_path(@object.uuid), alert: 'Akcja nie udała się' }
+          format.html { redirect_to users_profile_path(@object.uuid), alert: alert }
+          broadcast_alert
         end
       end
     end
@@ -66,10 +72,12 @@ module Users
     def follow
       respond_to do |format|
         if @action_context.perform
-          format.html { redirect_to users_profile_path(@object.uuid), notice: 'Dodano do obserwowanych' }
+          format.html { redirect_to users_profile_path(@object.uuid), notice: notice }
           format.turbo_stream {}
+          broadcast_notice
         else
-          format.html { redirect_to users_profile_path(@object.uuid), alert: 'Akcja nie udała się' }
+          format.html { redirect_to users_profile_path(@object.uuid), alert: alert }
+          broadcast_alert
         end
       end
     end
@@ -77,10 +85,12 @@ module Users
     def unfollow
       respond_to do |format|
         if @action_context.perform
-          format.html { redirect_to users_profile_path(@object.uuid), notice: 'Usunięto z obserwowanych' }
+          format.html { redirect_to users_profile_path(@object.uuid), notice: notice }
           format.turbo_stream {}
+          broadcast_notice
         else
-          format.html { redirect_to users_profile_path(@object.uuid), alert: 'Akcja nie udała się' }
+          format.html { redirect_to users_profile_path(@object.uuid), alert: alert }
+          broadcast_alert
         end
       end
     end
@@ -120,6 +130,7 @@ module Users
     def self_action
       return unless current_user.uuid == @object.uuid
 
+      broadcast_alert 'Nie możesz wykonać tej akcji'
       redirect_to users_profile_path(@object.uuid), alert: 'Nie możesz wykonać tej akcji'
     end
 
@@ -134,6 +145,7 @@ module Users
     def validate_password
       return if current_user.valid_password?(passowrd)
 
+      broadcast_alert 'Błędne hasło'
       redirect_to users_edit_profile_path(current_user.uuid), alert: 'Błędne hasło'
     end
   end
