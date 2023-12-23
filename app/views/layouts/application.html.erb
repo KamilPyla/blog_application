@@ -13,7 +13,11 @@
 
   <body>
     <%= render('navbars/navbar')%>
-    <%= render('layouts/notice_message')%>
+    <%= turbo_stream_from :"dynamic_toast_#{current_user.uuid}" if current_user %>
+    <%= content_tag :div, id: "toast_#{current_user.try(:uuid)}" do %>
+      <%= render('layouts/notice_message', notice: nil, alert: nil)%>
+    <% end %>
+  
     <div class="center">
       <%= yield %>
     </div>

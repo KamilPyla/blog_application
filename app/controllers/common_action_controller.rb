@@ -1,5 +1,6 @@
 class CommonActionController < ApplicationController
   include ::Authentication::UserController
+  include ::Toasts::Broadcaster
 
   private
 

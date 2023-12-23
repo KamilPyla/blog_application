@@ -27,9 +27,11 @@ class EventsController < CommonActionController
   def create
     respond_to do |format|
       if @action_context.perform
-        format.html { redirect_to events_path, notice: 'Dodano wydarzenie' }
+        format.html { redirect_to events_path, notice: notice }
+        broadcast_notice 
       else
         format.html { render :new, status: :unprocessable_entity }
+        broadcast_alert
       end
     end
   end
@@ -37,9 +39,11 @@ class EventsController < CommonActionController
   def update
     respond_to do |format|
       if @action_context.perform
-        format.html { redirect_to events_path, notice: 'Edytowano wydarzenie' }
+        format.html { redirect_to events_path, notice: notice }
+        broadcast_notice
       else
         format.html { render :edit, status: :unprocessable_entity }
+        broadcast_alert
       end
     end
   end
@@ -47,9 +51,11 @@ class EventsController < CommonActionController
   def destroy
     respond_to do |format|
       if @action_context.perform
-        format.html { redirect_to events_path, notice: 'Usunięto wydarzenie' }
+        format.html { redirect_to events_path, notice: notice }
+        broadcast_notice
       else
         format.html { render status: :unprocessable_entity }
+        broadcast_alert
       end
     end
   end
