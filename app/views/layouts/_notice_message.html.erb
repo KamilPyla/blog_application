@@ -1,17 +1,14 @@
-<%= turbo_frame_tag :dynamic_notice do %>
-  <% if flash[:notice] %>
-    <div class="alert alert-success alert-dismissible fade show mb-0" role="alert">
-      <%= flash[:notice] %>
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-  <% end %>
+<% if flash[:notice] || notice %>
+  <div class="alert alert-success alert-dismissible fade show mb-0" role="alert">
+    <%= flash[:notice] || notice %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
 <% end %>
 
-<%= turbo_frame_tag :dynamic_alert do %>
-  <% if flash[:alert] %>
-    <div class="alert alert-danger alert-dismissible fade show mb-0" role="alert">
-      <%= flash[:alert] %>
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-  <% end %>
+
+<% if flash[:alert] || alert %>
+  <div class="alert alert-danger alert-dismissible fade show mb-0" role="alert">
+    <%= flash[:alert] || alert %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
 <% end %>
