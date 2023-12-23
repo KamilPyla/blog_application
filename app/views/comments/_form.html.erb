@@ -1,0 +1,11 @@
+<%= turbo_frame_tag :"#{@object.class.to_s}_#{@object.id}" do%>
+  <%= form_with url: create_comment_path(kind: @object.class.to_s, id: @object.id) do |form| %>
+    <div class="form-group mb-2">
+      <%= form.text_field :content, class: "form-control" %>
+    </div>
+
+    <div>
+      <%= form.submit 'Dodaj', class: 'btn btn-success', data: { turbo: false } %>
+    </div>
+  <% end %>
+<% end %>

@@ -1,6 +1,4 @@
 <div id="<%= dom_id post %>" class="content my-4">
-
-
   <div class='row'>
     <div class='col'>
        <h1> <%= post.title %> </h1>
@@ -20,3 +18,5 @@
     <%= link_to image_tag(post.picture_as_thumbnail(picture)), picture %>
   <% end if post.pictures.attached? %>
 </div>
+
+<%= render partial: 'shared/comments', collection: post.comments.includes(comments: { user: [:blocked_users] }, user: [:blocked_users]).order(:created_at), as: :comment %>

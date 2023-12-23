@@ -5,6 +5,7 @@ class ActivityLog < ApplicationRecord
     login: 'login',
     post: 'post',
     event: 'event',
-    user: 'user'
+    user: 'user',
+    comment: 'comment'
   }
 end

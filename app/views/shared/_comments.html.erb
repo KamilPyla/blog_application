@@ -1,0 +1,33 @@
+<div class="row rounded-3 blue-bg my-3 p-3">
+  <div class='row'>
+    <div class='col-2'>
+      <%= link_to comment.user.full_name, users_profile_path(comment.user.uuid), class: 'btn btn-outline-success', data: { turbo: false } %>
+    </div>
+    
+    <div class='col-10'>
+      <%= comment.content %>
+    </div>
+  </div>
+
+  <div class='row'>
+      <div class='col-2'>
+        <%= button_to 'Usuń komentarz', 
+                      destroy_comment_path(id: comment.id),
+                      class: 'btn btn-outline-danger my-3', 
+                      method: :delete, data: { turbo: false } if comment_author?(comment) || object_author?(comment.subject) %>
+      </div>
+      <div class='col-10'>
+        <%= turbo_frame_tag :"#{comment.class.to_s}_#{comment.id}" do %>
+          <%= link_to 'Skomentuj', new_comment_path(kind: :comment, id: comment.id), class: 'btn btn-primary' %>
+        <% end unless comment.user.blocked?(current_user) %>
+      </div>
+  </div>
+</div>
+
+<% if comment.comments.present? %>
+  <div class='w-75 float-end'>
+    <%= render partial: 'shared/comments', collection: comment.comments.includes(comments: { user: [:blocked_users] }, user: [:blocked_users]), as: :comment %>
+  </div>
+<% end %>
+
+<div style="clear:both;"></div>
