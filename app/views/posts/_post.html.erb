@@ -17,6 +17,12 @@
   <% post.pictures.each do |picture| %>
     <%= link_to image_tag(post.picture_as_thumbnail(picture)), picture %>
   <% end if post.pictures.attached? %>
+
+  <%= like_button(post) %>
+
 </div>
 
-<%= render partial: 'shared/comments', collection: post.comments.includes(comments: { user: [:blocked_users] }, user: [:blocked_users]).order(:created_at), as: :comment %>
+<%= render partial: 'shared/comments',
+           collection: post.comments.includes(comments: { user: [:blocked_users] }, user: [:blocked_users]).order(:created_at),
+           as: :comment,
+           locals: { root_object: post }%>

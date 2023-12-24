@@ -43,4 +43,11 @@ pl:
       destroy:
         notice: Komentarz został usunięty
         alert: Akcja nie udała się
+    reaction:
+      like:
+        notice: 'Polubiono aktywność'
+        alert: 'Akcja nie udała się'
+      dislike:
+        notice: 'Usunięto polubienie'
+        alert: 'Akcja nie udała się'
     alert: Akcja nie udała się
