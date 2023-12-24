@@ -38,8 +38,8 @@ Rails.application.routes.draw do
 
   end
 
-  # post 'like/:kind/:id', to: 'reactions#like', as: 'like_activity'
-  # post 'dislike/:kind/:id', to: 'reactions#dislike', as: 'dislike_activity'
+  post 'like/:kind/:id', to: 'reactions#like', as: 'like_activity'
+  delete 'dislike/:kind/:id', to: 'reactions#dislike', as: 'dislike_activity'
 
   get 'comment/:kind/:id', to: 'comments#new', as: 'new_comment'
   post 'comment/:kind/:id', to: 'comments#create', as: 'create_comment'
