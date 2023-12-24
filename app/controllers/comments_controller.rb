@@ -1,6 +1,7 @@
 class CommentsController < CommonActionController
   include ::ActivityLogs::Loggable
   include ::Toasts::Broadcaster
+  include ::PolymorphicLoader
 
   before_action :load_object, only: [:create, :new]
   before_action :load_comment, only: :destroy
@@ -37,30 +38,11 @@ class CommentsController < CommonActionController
     :comment
   end
 
-  def nested_subject(object)
-    return object unless object.is_a?(Comment)
-    
-    nested_subject(object.subject)
-  end
-
-  def load_object
-    return if klass == :empty
-
-    @object ||= klass.find_by(id: params[:id])
-  end
-
   def load_comment
-    @object ||= current_user.comments.find_by(id: params[:id])
+    @object ||= Comment.find_by(id: params[:id])
   end
 
   def permitted_params
     params.permit!
-  end
-
-  def klass
-    params[:kind].classify.constantize
-
-  rescue NameError
-    :empty
   end
 end
