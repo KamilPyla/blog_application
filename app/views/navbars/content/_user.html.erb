@@ -1,16 +1,12 @@
 <li class="nav-item">
-  <%= link_to 'Na czasie', posts_path, class: "nav-link active" %>
+  <%= link_to 'Na czasie', posts_popular_path, class: "nav-link active" %>
 </li>
 <li class="nav-item">
-  <%= link_to 'Wybrane dla Ciebie', posts_path, class: "nav-link active" %>
+  <%= link_to 'Wybrane dla Ciebie', posts_for_you_path(uuid: current_user.uuid), class: "nav-link active" %>
 </li>
 
 <li class="nav-item">
   <%= link_to 'Wydarzenia', events_path, class: "nav-link active" %>
-</li>
-
-<li class="nav-item">
-  <a class="nav-link active" aria-current="page" href="#">Sklep</a>
 </li>
 
 <li class="nav-item">

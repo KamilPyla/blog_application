@@ -5,6 +5,7 @@
     </div>
     <div class='col'>
       <%= link_to author.full_name, users_profile_path(author.uuid), class: 'btn btn-outline-success', data: { turbo: false } %>
+      <%= render 'actions', post: @object if post_author? %>
     </div>
   </div>
 
