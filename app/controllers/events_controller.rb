@@ -9,7 +9,7 @@ class EventsController < CommonActionController
   before_action :set_user, only: :users_events
 
   def index
-    @events = Event.includes(image_attachment: :blob).order(start_at: :desc)
+    @events = Event.followers(current_user).includes(image_attachment: :blob).order(start_at: :desc)
   end
 
   def show; end

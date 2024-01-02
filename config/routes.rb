@@ -13,9 +13,7 @@ Rails.application.routes.draw do
     sessions: 'users/sessions'
   }
 
-  root 'pages#home'
-  get 'pages/users'
-  get 'pages/admin'
+  root 'posts#index'
 
   get 'activity_logs', to: 'activity_logs#index'
   get 'activity_logs/:action_subject', to: 'activity_logs#action_subject', as: 'activity_logs_source'
@@ -46,6 +44,9 @@ Rails.application.routes.draw do
   delete 'comment/:id', to: 'comments#destroy', as: 'destroy_comment'
 
   get '/posts/user/:uuid', to: 'posts#users_posts', as: :users_posts
+  get '/posts/for_you/:uuid', to: 'posts#for_you', as: :posts_for_you
+  get '/posts/popular/top', to: 'posts#popular', as: :posts_popular
+
   get '/events/user/:uuid', to: 'events#users_events', as: :users_events
 
 

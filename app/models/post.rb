@@ -9,6 +9,9 @@ class Post < ApplicationRecord
   has_many_attached :pictures
   has_rich_text :body
 
+  scope :followers, -> (user) { where(user_id: user.following_users_ids) }
+  scope :popular, -> { order(total_reactions: :desc) }
+
   def image_as_thumbnail
     return unless image.content_type.in?(%w[image/jpeg image/png])
 
