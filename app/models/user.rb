@@ -43,7 +43,11 @@ class User < ApplicationRecord
   end
 
   def following?(other_user)
-    following.pluck(:id).include?(other_user.id)
+    following_users_ids.include?(other_user.id)
+  end
+
+  def following_users_ids
+    following.pluck(:id)
   end
 
   def full_name

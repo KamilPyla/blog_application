@@ -15,6 +15,20 @@ class PostsController < CommonActionController
                  .order(created_at: :desc).page(params[:page])
   end
 
+  def for_you
+    @posts = Post.followers(current_user)
+                 .with_rich_text_body
+                 .includes(:post_category, :user, image_attachment: :blob)
+                 .order(created_at: :desc).page(params[:page])
+  end
+
+  def popular
+    @posts = Post.popular
+                 .with_rich_text_body
+                 .includes(:post_category, :user, image_attachment: :blob)
+                 .page(params[:page])
+  end
+
   def show; end
 
   def users_posts
