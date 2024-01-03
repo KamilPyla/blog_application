@@ -1,4 +1,8 @@
 <div class="btn-group">
   <%= render following_partial_name(presenter.user), user_uuid: presenter.user.uuid %>
   <%= render block_partial_name(presenter.user), user_uuid: presenter.user.uuid %>
+  <%= button_to 'Napisz wiadomość', messages_new_path(sender_uuid: current_user.uuid, adressee_id: presenter.user.id),
+                method: :get,
+                data: { turbo: false },
+                class: 'btn btn-primary mx-2' unless presenter.user.blocked?(current_user) %>
 </div>

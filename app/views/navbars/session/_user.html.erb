@@ -4,7 +4,7 @@
     Więcej
   </a>
   <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-    <li><%= link_to 'Wiadomości', "#", class: 'dropdown-item' %></li>
+    <li><%= link_to 'Wiadomości', users_conversations_path(current_user.uuid), class: 'dropdown-item' %></li>
     <li><%= link_to 'Historia Aktywności', activity_logs_path, class: 'dropdown-item' %></li>
     <li><%= link_to 'Edytuj Profil', users_edit_profile_path(current_user.uuid), class: 'dropdown-item' %></li>
     <li><hr class="dropdown-divider"></li>

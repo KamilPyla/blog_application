@@ -1,0 +1,11 @@
+<%= turbo_frame_tag :"message_thread_#{thread.uuid}" do%>
+  <%= form_with url: messages_create_path(thread_uuid: thread.uuid) do |form| %>
+    <div class="form-group my-2">
+      <%= form.text_field :content, class: "form-control" %>
+    </div>
+
+    <div>
+      <%= form.submit 'Wyślij', class: 'btn btn-success btn-sm', data: { turbo: false } %>
+    </div>
+  <% end %>
+<% end %>

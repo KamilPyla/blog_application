@@ -1,0 +1,24 @@
+<div class="row rounded-3 my-1 p-2 w-50 green-bg">
+  <div class='row'>
+    <div class='col-2' style='min-width: 175px;'>
+      <%= link_to thread.sender.full_name, 
+            users_profile_path(thread.sender.uuid), 
+            class: 'btn btn-outline-primary btn-sm', 
+            data: { turbo: false } %>
+    </div>
+
+    <div class='col-2' style='min-width: 175px;'>
+      <%= link_to thread.adressee.full_name, 
+            users_profile_path(thread.adressee.uuid), 
+            class: 'btn btn-outline-success btn-sm', 
+            data: { turbo: false } %>
+    </div>
+
+    <div class='col'>
+      <%= link_to 'Idź do konwersacji', 
+            conversation_show_path(thread.uuid), 
+            class: 'btn btn-primary btn-sm', 
+            data: { turbo: false } %>
+    </div>
+  </div>
+</div>
