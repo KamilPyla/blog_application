@@ -1,0 +1,4 @@
+<h1> <%= "#{@thread.sender.full_name} - #{@thread.adressee.full_name}" %></h1>
+<%= render partial: 'message', collection: @thread.messages.order(:created_at), as: :message, locals: { thread: @thread } %>
+
+<%= render 'form', thread: @thread%>

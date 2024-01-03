@@ -8,7 +8,7 @@ module Executors
       private
 
       def build_comment
-        object.comments.new( user: user, **form_attributes)
+        object.comments.new(user: user, **form_attributes)
       end
     end
   end

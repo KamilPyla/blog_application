@@ -1,0 +1,22 @@
+<div id="<%= dom_id(message)%>" class="row rounded-3 my-1 p-2 w-50 <%= object_author?(message) ? 'blue-bg' : 'green-bg float-end' %>">
+  <div class='row'>
+    <div class='col-2' style='min-width: 175px;'>
+      <% if object_author?(message) %>
+        <%= button_to 'Usuń wiadomość', 
+              destroy_message_path(message_id: message.id),
+              class: 'btn btn-outline-danger my-1 btn-sm', 
+              method: :delete, data: { turbo: false } %>
+      <% else %>
+        <%= link_to message.user.full_name, 
+              users_profile_path(message.user.uuid), 
+              class: 'btn btn-outline-success btn-sm', 
+              data: { turbo: false } %>
+      <% end %>
+    </div>
+    
+    <div class='col'>
+      <%= message.content %>
+    </div>
+  </div>
+</div>
+<div style="clear:both;"></div>

@@ -33,8 +33,13 @@ Rails.application.routes.draw do
     post '/unblock/:uuid', to: 'profiles#unblock', as: 'profile_unblock'
     post '/follow/:uuid', to: 'profiles#follow', as: 'profile_follow'
     post '/unfollow/:uuid', to: 'profiles#unfollow', as: 'profile_unfollow'
-
   end
+
+  get '/messages/:user_uuid', to: 'messages#index', as: :users_conversations
+  get '/messages/:sender_uuid/:adressee_id', to: 'messages#new', as: :messages_new
+  get '/conversation/:thread_uuid', to: 'messages#show', as: :conversation_show
+  post '/conversation/:thread_uuid', to: 'messages#create', as: :messages_create
+  delete '/messages/:message_id', to: 'messages#destroy', as: :destroy_message
 
   post 'like/:kind/:id', to: 'reactions#like', as: 'like_activity'
   delete 'dislike/:kind/:id', to: 'reactions#dislike', as: 'dislike_activity'

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_06_073251) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_02_211717) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -115,21 +115,20 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_06_073251) do
 
   create_table "message_threads", force: :cascade do |t|
     t.string "topic"
-    t.string "kind"
-    t.string "subject_type"
-    t.bigint "subject_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["subject_type", "subject_id"], name: "index_message_threads_on_subject"
+    t.integer "adressee_id"
+    t.integer "sender_id"
+    t.uuid "uuid", default: -> { "gen_random_uuid()" }
   end
 
   create_table "messages", force: :cascade do |t|
     t.bigint "user_id"
-    t.bigint "message_threads_id"
+    t.bigint "message_thread_id"
     t.string "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["message_threads_id"], name: "index_messages_on_message_threads_id"
+    t.index ["message_thread_id"], name: "index_messages_on_message_thread_id"
     t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
@@ -229,7 +228,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_06_073251) do
   add_foreign_key "activity_logs", "users"
   add_foreign_key "comments", "users"
   add_foreign_key "events", "users"
-  add_foreign_key "messages", "message_threads", column: "message_threads_id"
+  add_foreign_key "messages", "message_threads"
   add_foreign_key "messages", "users"
   add_foreign_key "product_sub_categories", "product_categories"
   add_foreign_key "reactions", "users"
