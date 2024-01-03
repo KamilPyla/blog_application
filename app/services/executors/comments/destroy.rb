@@ -15,10 +15,6 @@ module Executors
         object
       end
 
-      def subject_author?
-
-      end
-
       def nested_subject(object)
         return object unless object.is_a?(Comment)
 

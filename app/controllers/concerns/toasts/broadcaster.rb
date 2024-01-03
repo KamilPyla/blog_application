@@ -31,7 +31,7 @@ module Toasts
     end
 
     def alert_key
-      :"toasts.#{action_subject}.#{action_name}.alert"
+      :'toasts.alert'
     end
   end
 end

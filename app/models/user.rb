@@ -13,6 +13,11 @@ class User < ApplicationRecord
   has_many :tickets
   has_many :comments
 
+  has_many :own_threads, class_name: 'MessageThread',
+                         foreign_key: :sender_id
+  has_many :other_threads, class_name: 'MessageThread',
+                           foreign_key: :adressee_id
+
   has_many :active_obserwations, class_name: 'Observation',
                                  foreign_key: :follower_id,
                                  dependent: :destroy
@@ -37,6 +42,10 @@ class User < ApplicationRecord
   has_many :blockers, through: :passive_blockade, source: :blocker
 
   validates :login, uniqueness: true
+
+  def threads
+    own_threads + other_threads
+  end
 
   def blocked?(other_user)
     blocked_users.pluck(:id).include?(other_user.id)
