@@ -3,51 +3,41 @@ pl:
     event:
       create:
         notice: Dodano wydarzenie
-        alert: Akcja nie udała się
       update:
         notice: Edytowano wydarzenie
-        alert: Akcja nie udała się
       destroy:
         notice: Usunięto wydarzenie
-        alert: Akcja nie udała się
     post:
       create:
         notice: Dodano post
-        alert: Akcja nie udała się
       update:
         notice: Edytowano post
-        alert: Akcja nie udała się
       destroy:
         notice: Usunięto post
-        alert: Akcja nie udała się
     user:
       update:
         notice: Edytowano profil
-        alert: Akcja nie udała się
       block:
         notice: Zablokowano użytkownika
-        alert: Akcja nie udała się
       unblock:
         notice: Odblokowano użytkownika
-        alert: Akcja nie udała się
       follow:
         notice: Dodano do obserwowanych
-        alert: Akcja nie udała się
       unfollow:
         notice: Usunięto z obserwowanych
-        alert: Akcja nie udała się
     comment:
       create:
         notice: Dodano komentarz
-        alert: Akcja nie udała się
       destroy:
         notice: Komentarz został usunięty
-        alert: Akcja nie udała się
+    message:
+      create:
+        notice: Wiadomość została wysłana
+      destroy:
+        notice: Usunięto wiadoność
     reaction:
       like:
         notice: 'Polubiono aktywność'
-        alert: 'Akcja nie udała się'
       dislike:
         notice: 'Usunięto polubienie'
-        alert: 'Akcja nie udała się'
     alert: Akcja nie udała się
