@@ -1,0 +1,49 @@
+<div id="<%= dom_id event %>" class="content my-4">
+  <div class='row'>
+    <div class='col'>
+       <h1> <%= event.title %> </h1>
+    </div>
+    <div class='col'>
+      <%= link_to author.full_name, users_profile_path(author.uuid), class: 'btn btn-outline-success', data: { turbo: false } %>
+      <% if object_author?(@object) %>
+        <%= render 'actions' %>
+      <% else %>
+        <%= link_to 'Kup bilet', users_profile_path(author.uuid), class: 'btn btn-primary', data: { turbo: false } %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class='row'>
+    <div class='col'>
+      <% if event.image.content_type.in?(%w[image/jpeg image/png])%>
+        <%= link_to image_tag(event.image_as_thumbnail), event.image %>
+      <% end %>
+      <p><%= event.content %></p>
+    </div>
+
+    <div class='col'>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Data</th>
+            <th scope="col">Godzina</th>
+            <th scope="col">Miasto</th>
+            <th scope="col">Ulica</th>
+            <th scope="col">Cena</th>
+            <th scope="col">Dostępne bilety</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr id="<%= dom_id event %>">
+              <td><%= event.date %></td>
+              <td><%= event.start_at.strftime('%H:%M') %></td>
+              <td><%= event.city %></td>
+              <td><%= event.street %></td>
+              <td><%= event.price %></td>
+              <td><%= event.max_tickets - event.total_tickets.to_i %></td>
+            </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
