@@ -7,11 +7,10 @@ module ApplicationHelper
     end
   end
 
-  def comment_author?(comment)
-    comment.user_id == current_user.id
-  end
 
   def object_author?(object)
+    return unless current_user
+
     object.user_id == current_user.id
   end
 

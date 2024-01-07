@@ -2,6 +2,7 @@ class ReactionsController < CommonActionController
   include ::ActivityLogs::Loggable
   include ::PolymorphicLoader
 
+  before_action :user_log_in?, only: [:like, :dislike]
   before_action :load_object, only: [:like, :dislike]
   before_action :load_action_context, only: [:like, :dislike]
   after_action :create_log, only: [:like, :dislike]
