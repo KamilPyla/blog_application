@@ -4,4 +4,8 @@ class MessageThread < ApplicationRecord
   has_many :messages
 
   scope :by_user, ->(user) { where(sender_id: user.id).or(where(adressee_id: user.id)) }
+
+  def blocked?
+    adressee.blocked?(sender) || sender.blocked?(adressee)
+  end
 end

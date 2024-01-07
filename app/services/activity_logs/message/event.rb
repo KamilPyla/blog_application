@@ -7,7 +7,8 @@ module ActivityLogs
         {
           create: 'Dodano wydarzenie',
           update: 'Edytowano wydarzenie',
-          destroy: destory_action
+          destroy: destory_action,
+          buy_ticket: 'Kupiono bilet'
         }
       end
 

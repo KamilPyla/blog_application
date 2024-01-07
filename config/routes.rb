@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     sessions: 'users/sessions'
   }
 
-  root 'posts#index'
+  root 'pages#home'
 
   get 'activity_logs', to: 'activity_logs#index'
   get 'activity_logs/:action_subject', to: 'activity_logs#action_subject', as: 'activity_logs_source'
@@ -53,6 +53,8 @@ Rails.application.routes.draw do
   get '/posts/popular/top', to: 'posts#popular', as: :posts_popular
 
   get '/events/user/:uuid', to: 'events#users_events', as: :users_events
+  post 'events/:id/buy_ticket', to: 'events#buy_ticket', as: :buy_ticket_to_event
+  get '/user/:uuid/tickets', to: 'events#show_tickets', as: :show_tickets
 
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

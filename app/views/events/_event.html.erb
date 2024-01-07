@@ -4,12 +4,15 @@
        <h1> <%= event.title %> </h1>
     </div>
     <div class='col'>
-      <%= link_to author.full_name, users_profile_path(author.uuid), class: 'btn btn-outline-success', data: { turbo: false } %>
-      <% if object_author?(@object) %>
-        <%= render 'actions' %>
-      <% else %>
-        <%= link_to 'Kup bilet', users_profile_path(author.uuid), class: 'btn btn-primary', data: { turbo: false } %>
-      <% end %>
+      <div class="btn-group">
+        <%= button_to author.full_name, users_profile_path(author.uuid), class: 'btn btn-outline-success', method: :get, data: { turbo: false } %>
+        <% if object_author?(@object) %>
+          <%= render 'actions' %>
+        <% else %>
+          <%= button_to 'Kup bilet', buy_ticket_to_event_path(event.id), method: :post, class: 'btn btn-primary mx-2', form_class: 'payment-alertbox' %>
+        <% end %>
+      </div>
+      <h2>Sprzedane bilety: <%= event.total_tickets %></h2>
     </div>
   </div>
 
