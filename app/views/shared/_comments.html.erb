@@ -14,7 +14,7 @@
         <%= button_to 'Usuń komentarz', 
                       destroy_comment_path(id: comment.id),
                       class: 'btn btn-outline-danger my-1 btn-sm', 
-                      method: :delete, data: { turbo: false } if comment_author?(comment) || object_author?(root_object) %>
+                      method: :delete, data: { turbo: false } if object_author?(comment) || object_author?(root_object) %>
       </div>
       <div class='col'>
         <%= turbo_frame_tag :"#{comment.class.to_s}_#{comment.id}" do %>

@@ -1,14 +1,14 @@
 <li class="nav-item">
-  <a class="nav-link active" aria-current="page" href="#">Member</a>
+  <%= link_to 'Na czasie', posts_popular_path, class: "nav-link active" %>
 </li>
 <li class="nav-item">
-  <a class="nav-link active" href="#">Courses</a>
-</li>
-
-<li class="nav-item">
-  <a class="nav-link active" aria-current="page" href="#">Blog</a>
+  <%= link_to 'Wybrane dla Ciebie', posts_for_you_path(uuid: current_user&.uuid || 'empty_uuid'), class: "nav-link active" %>
 </li>
 
 <li class="nav-item">
-  <a class="nav-link active" aria-current="page" href="#">Event</a>
+  <%= link_to 'Wydarzenia', events_path, class: "nav-link active" %>
+</li>
+
+<li class="nav-item">
+  <%= link_to 'Dodaj wpis', new_post_path, class: 'btn btn-success'%>
 </li>
