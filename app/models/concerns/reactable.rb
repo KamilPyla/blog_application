@@ -6,6 +6,8 @@ module Reactable
   end
 
   def liked?(user)
+    return unless user
+
     reactions.pluck(:user_id).include?(user.id)
   end
 end

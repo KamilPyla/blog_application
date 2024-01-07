@@ -2,6 +2,7 @@ module Users
   class ProfilesController < CommonActionController
     include ::ActivityLogs::Loggable
 
+    before_action :user_log_in?
     before_action :set_object, only: %i[show edit update block follow unblock unfollow show_following show_followers]
     before_action :validate_password, only: %i[update]
     after_action :create_log, only: %i[update block follow unblock unfollow]
