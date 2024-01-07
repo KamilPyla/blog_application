@@ -2,9 +2,9 @@ class EventsController < CommonActionController
   include ::ActivityLogs::Loggable
 
   before_action :user_log_in?
-  before_action :set_object, only: %i[show edit update destroy]
-  after_action :create_log, only: %i[create update destroy]
-  before_action :load_action_context, only: %i[create update destroy]
+  before_action :set_object, only: %i[show edit update destroy buy_ticket]
+  after_action :create_log, only: %i[create update destroy buy_ticket]
+  before_action :load_action_context, only: %i[create update destroy buy_ticket]
   before_action :verify_params, only: %i[create update]
   before_action :check_ability, only: %i[new edit create update destroy]
   before_action :set_user, only: :users_events
@@ -14,6 +14,10 @@ class EventsController < CommonActionController
   end
 
   def show; end
+
+  def show_tickets
+    @tickets = current_user.tickets.includes(:event)
+  end
 
   def users_events
     @events = @user.events.includes(image_attachment: :blob).order(start_at: :desc)
@@ -53,6 +57,18 @@ class EventsController < CommonActionController
     respond_to do |format|
       if @action_context.perform
         format.html { redirect_to events_path, notice: notice }
+        broadcast_notice
+      else
+        format.html { render status: :unprocessable_entity }
+        broadcast_alert
+      end
+    end
+  end
+
+  def buy_ticket
+    respond_to do |format|
+      if @action_context.perform
+        format.html { redirect_to @object, notice: notice }
         broadcast_notice
       else
         format.html { render status: :unprocessable_entity }

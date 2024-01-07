@@ -26,6 +26,7 @@ class MessagesController < CommonActionController
         format.html { redirect_to conversation_show_path(@object.uuid), notice: notice }
         broadcast_notice
       else
+        format.html { redirect_to conversation_show_path(@object.uuid), alert: alert }
         broadcast_alert
       end
     end
@@ -37,6 +38,7 @@ class MessagesController < CommonActionController
         format.html { redirect_to conversation_show_path(@object.message_thread.uuid), notice: notice }
         broadcast_notice
       else
+        format.html { redirect_to conversation_show_path(@object.uuid), alert: alert }
         broadcast_alert
       end
     end

@@ -5,3 +5,5 @@ import "popper"
 import "bootstrap"
 import "trix"
 import "@rails/actiontext"
+import Swal from 'sweetalert2';
+window.Swal = Swal;
