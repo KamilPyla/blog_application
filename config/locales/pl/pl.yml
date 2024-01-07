@@ -7,6 +7,8 @@ pl:
         notice: Edytowano wydarzenie
       destroy:
         notice: Usunięto wydarzenie
+      buy_ticket:
+        notice: Kupiono bilet
     post:
       create:
         notice: Dodano post

@@ -4,5 +4,5 @@
   <%= button_to 'Napisz wiadomość', messages_new_path(sender_uuid: current_user.uuid, adressee_id: presenter.user.id),
                 method: :get,
                 data: { turbo: false },
-                class: 'btn btn-primary mx-2' unless presenter.user.blocked?(current_user) %>
+                class: 'btn btn-primary mx-2' %>
 </div>
