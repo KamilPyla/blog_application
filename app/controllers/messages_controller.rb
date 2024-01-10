@@ -6,6 +6,8 @@ class MessagesController < CommonActionController
   before_action :load_thread, only: [:create, :new]
   before_action :load_message, only: :destroy
   before_action :load_action_context, only: [:create, :destroy]
+  after_action :create_log, only: [:create, :destroy]
+
  
   def new
     @thread ||= Messages::ThreadFinder.perform(current_user: current_user, other_user: adressee)
