@@ -1,23 +1,24 @@
 Rails.application.routes.draw do
+  mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
+
   resources :events
   resources :posts
-  resources :product_sub_categories
-  resources :product_categories
   resources :post_categories
 
   devise_for :admin, controllers: {
-    sessions: 'admin/sessions'
+    sessions: 'admin/sessions',
+    registrations: 'admin/registrations'
   }
 
   devise_for :users, controllers: {
-    sessions: 'users/sessions'
+    sessions: 'users/sessions',
+    registrations: 'users/registrations'
   }
 
   root 'pages#home'
 
   get 'activity_logs', to: 'activity_logs#index'
   get 'activity_logs/:action_subject', to: 'activity_logs#action_subject', as: 'activity_logs_source'
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   namespace :users do
     get '/:uuid', to: 'profiles#show', as: 'profile'
@@ -57,7 +58,5 @@ Rails.application.routes.draw do
   get '/user/:uuid/tickets', to: 'events#show_tickets', as: :show_tickets
 
 
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check
 end

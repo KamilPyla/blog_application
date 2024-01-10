@@ -12,7 +12,10 @@ module ActivityLogsHelper
       login: 'Logowanie',
       event: 'Wydarzenia',
       post: 'Posty',
-      user: 'Profil'
+      user: 'Profil',
+      message: 'Wiadomości',
+      comment: 'Komentarze',
+      reaction: 'Reakcje'
     }
   end
 end

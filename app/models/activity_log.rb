@@ -7,6 +7,7 @@ class ActivityLog < ApplicationRecord
     event: 'event',
     user: 'user',
     comment: 'comment',
-    reaction: 'reaction'
+    reaction: 'reaction',
+    message: 'message'
   }
 end

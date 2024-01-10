@@ -1,7 +1,7 @@
 class EventsController < CommonActionController
   include ::ActivityLogs::Loggable
 
-  before_action :user_log_in?
+  before_action :user_log_in?, except: [:index, :show]  
   before_action :set_object, only: %i[show edit update destroy buy_ticket]
   after_action :create_log, only: %i[create update destroy buy_ticket]
   before_action :load_action_context, only: %i[create update destroy buy_ticket]
@@ -10,7 +10,7 @@ class EventsController < CommonActionController
   before_action :set_user, only: :users_events
 
   def index
-    @events = Event.followers(current_user).includes(image_attachment: :blob).order(start_at: :desc)
+    @events = events_scope
   end
 
   def show; end
@@ -78,6 +78,14 @@ class EventsController < CommonActionController
   end
 
   private
+
+  def events_scope
+    if admin_signed_in?
+      Event.includes(image_attachment: :blob).order(start_at: :desc)
+    else
+      Event.active.followers(current_user).includes(image_attachment: :blob).order(start_at: :desc)
+    end
+  end
 
   def set_user
     @user ||= User.find_by uuid: params[:uuid]

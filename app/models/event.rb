@@ -10,6 +10,7 @@ class Event < ApplicationRecord
   before_save :set_proper_start_at
 
   scope :followers, ->(user) { where(user_id: user.following_users_ids) }
+  scope :active, ->() { where('start_at > ?', Time.zone.now) }
 
   def image_preload
     image.attached? ? image : ''

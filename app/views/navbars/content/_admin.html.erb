@@ -1,14 +1,11 @@
 <li class="nav-item">
   <%= link_to('Kategorie postów', post_categories_path, class: 'nav-link active', aria_current:'page')%>
 </li>
+
 <li class="nav-item">
-  <%= link_to('Kategorie produktów', product_categories_path, class: 'nav-link active', aria_current:'page')%>
+  <%= link_to('Wpisy', posts_path, class: 'nav-link active', aria_current:'page')%>
 </li>
 
 <li class="nav-item">
-  <a class="nav-link active" aria-current="page" href="#">Blog</a>
-</li>
-
-<li class="nav-item">
-  <a class="nav-link active" aria-current="page" href="#">Event</a>
+ <%= link_to('Wydarzenia', events_path, class: 'nav-link active', aria_current:'page')%>
 </li>
