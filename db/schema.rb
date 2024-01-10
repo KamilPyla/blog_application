@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_02_211717) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_10_215556) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -158,30 +158,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_02_211717) do
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
-  create_table "product_categories", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "product_sub_categories", force: :cascade do |t|
-    t.string "name"
-    t.bigint "product_category_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["product_category_id"], name: "index_product_sub_categories_on_product_category_id"
-  end
-
-  create_table "products", force: :cascade do |t|
-    t.bigint "user_id"
-    t.string "name"
-    t.integer "price_in_cents"
-    t.bigint "product_category_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_products_on_user_id"
-  end
-
   create_table "reactions", force: :cascade do |t|
     t.bigint "user_id"
     t.string "subject_type"
@@ -230,7 +206,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_02_211717) do
   add_foreign_key "events", "users"
   add_foreign_key "messages", "message_threads"
   add_foreign_key "messages", "users"
-  add_foreign_key "product_sub_categories", "product_categories"
   add_foreign_key "reactions", "users"
   add_foreign_key "tickets", "events"
   add_foreign_key "tickets", "users"
